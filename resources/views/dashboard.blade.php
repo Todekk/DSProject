@@ -10,24 +10,39 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
             <div class="flex">
                 <div class="flex-auto text-2xl mb-4">Items List</div>
-                
+                <!-- Adding a new item -->
                 <div class="flex-auto text-right mt-2">
                     <a href="/item" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Add new Item</a>
                 </div>
             </div>
+            <!-- Search Bar -->
+            <div class="flex-auto text-right mt-2">
+                        <form action="/search" method="get" enctype = "multipart/form-data">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search">
+                                <span class="input-group-prepend">
+                                        <button type="submit" class="rounded border border-blue-400 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Search</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+            <!-- Display Information -->
             <table class="w-full text-md rounded mb-4">
                 <thead>
                 <tr class="border-b">
+                    <th class="text-left p-3 px-5">Picture</th>
                     <th class="text-left p-3 px-5">Item</th>
                     <th class="text-left p-3 px-5">Description</th>
                     <th class="text-left p-3 px-5">Price</th>
                     <th class="text-left p-3 px-5">Actions</th>
                     <th></th>
-                </tr>
+                </tr>                
                 </thead>
+                
                 <tbody>
                 @foreach(auth()->user()->items as $item)
-                    <tr class="border-b hover:bg-orange-100">
+                    <tr class="border-b hover:bg-orange-100">     
+                        <td><img src="{{$item->url}}" width="400px"></td>               
                         <td class="p-3 px-5">
                             {{$item->itemName}}
                         </td>

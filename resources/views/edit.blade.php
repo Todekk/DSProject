@@ -9,8 +9,10 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
         
-            <form method="POST" action="/item/{{ $item->id }}">
-
+            <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
+                 <div class="form-group">
+                    <input type="file" name="image" class="form-control">
+                </div>
                 <div class="form-group">
                     <textarea name="itemName" class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white">{{$item->itemName }}</textarea>	
                     @if ($errors->has('itemName'))
