@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 class ItemsController extends Controller
 {
     public function Index()
-    {
-        $items = auth()->user()->items();        
+    {            
+        $items = Item::all(); 
         return view('dashboard', compact('items'));
     }
     public function Add()
@@ -78,12 +78,27 @@ class ItemsController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function FilterName(Request $request)
     {
-        $search = $request->get('search');
         $items = DB::table('items')
-            ->where('itemName', 'LIKE',  '%' . $search . '%')
-            ->orWhere('.price', 'LIKE',  '%' . $search . '%')->orderBy('id', 'desc')->get();        
+            ->orderBy('itemName', 'asc')->get(); 
+        return view('dashboard', compact('items'));
+    }
+    public function FilterPrice(Request $request)
+    {
+        
+        $items = DB::table('items')
+            ->orderBy('price', 'asc')->get(); 
+        return view('dashboard', compact('items'));
+    }
+    public function FilterBySearch(Request $request)
+    {
+        
+        $filterBySearch = $request->get('filterBySearch');
+        $items = DB::table('items')
+            ->where('price', 'LIKE', '%' .$filterBySearch.'%')
+            ->orWhere('itemName', 'LIKE', '%' .$filterBySearch.'%')
+            ->orderBy('price', 'asc')->get(); 
         return view('dashboard', compact('items'));
     }
 }

@@ -18,18 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard',[ItemsController::class, 'index'])->name('dashboard');
-    Route::get('/search',[ItemsController::class, 'search']);
+Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+    Route::get('/dashboard',[ItemsController::class, 'Index'])->name('dashboard');
 
-    Route::get('/item',[ItemsController::class, 'add']);
-    Route::post('/item',[ItemsController::class, 'create']);
-    Route::get('/view-image',[ItemsController::class,'viewImage'])->name('images.view');
+    //Filters
+    Route::get('/filterName',[ItemsController::class, 'filterName']);
+    Route::get('/filterPrice',[ItemsController::class, 'filterPrice']);
+    Route::get('/filterBySearch',[ItemsController::class, 'filterBySearch']);
+
+    //Image view
+    Route::get('/view-image',[ItemsController::class,'viewImage'])->name('images.view');  
     
+    
+    Route::get('/item',[ItemsController::class, 'add']);
+    Route::post('/item',[ItemsController::class, 'create']);      
     Route::get('/item/{item}', [ItemsController::class, 'edit']);
     Route::post('/item/{item}', [ItemsController::class, 'update']);
 });
