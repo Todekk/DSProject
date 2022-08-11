@@ -1,15 +1,15 @@
-<x-app-layout>
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Edit Item') }}
-    </h2>
-</x-slot>
-
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-        
-            <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
+@extends('layouts.modal')
+@foreach($items as $item)
+<!-- Modal -->
+  <div class="modal fade" id="editModal{{$item->id}}" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 clas="modal-header">Edit Item</h2>
+        </div>
+        <div class="modal-body">
+        <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
                  <div class="form-group">
                     <input type="file" name="image" class="form-control">
                     @if ($errors->has('image'))
@@ -35,12 +35,17 @@
                     @endif
                 </div>
 
-                <div class="form-group">
-                    <button type="submit" name="update" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Update item</button>
+                <div class="modal-footer">  
+                    <button type="submit" name="update" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Update item</button>                          
+                    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" data-dismiss="modal">Close</button>        
                 </div>
-            {{ csrf_field() }}
+                {{ csrf_field() }}
             </form>
-        </div>
+      
+        </div>       
+      </div>
     </div>
+  </div>
 </div>
-</x-app-layout>
+<!--End modal-->
+@endforeach

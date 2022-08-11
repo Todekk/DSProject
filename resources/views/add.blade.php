@@ -1,14 +1,14 @@
-<x-app-layout>
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Add Item') }}
-    </h2>
-</x-slot>
-
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
-            <form method="POST" action="/item" enctype="multipart/form-data"> 
+@extends('layouts.modal')
+<!-- Modal -->
+  <div class="modal fade" id="addModal_create" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 clas="modal-header">Add New Item</h2>
+        </div>
+        <div class="modal-body">
+         <form method="POST" action="/item" enctype="multipart/form-data"> 
 
             <div class="form-group">
                     <input type="file" name="image" class="form-control">
@@ -37,7 +37,14 @@
                 </div>
                 {{ csrf_field() }}
             </form>
-        </div>
+      
+        </div>       
+      </div>
     </div>
+  </div>
 </div>
-</x-app-layout>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--End modal-->
+
+

@@ -30,14 +30,15 @@
                         </form>
                     </div>
                     <!-- Search Bar -->
-                    <div class="flex-auto text-right mt-2">
+                    <div class="flex-auto text-left mt-2">
                         <form action="/filterBySearch" method="get">
                             {{csrf_field()}}
-                            <div class="input-group">
+                            <div class="input-group">                            
                                 <input type="filterBySearch" name="filterBySearch" class="form-control" placeholder="Search" style="border-style: solid; border-width: 3px;">
                                 <span class="input-group-prepend">
                                         <button type="submit" class="rounded border border-blue-400 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Search</button>
-                                    </span>
+                                </span>
+                                
                             </div>
                         </form>
                     </div>
@@ -45,7 +46,8 @@
                 <div class="flex-auto text-2xl mb-4">Items List</div>
                 <!-- Adding a new item -->
                 <div class="flex-auto text-right mt-2">
-                    <a href="/item" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Add new Item</a>
+                   <a data-toggle="modal" href="#" id="addModal" data-target="#addModal_create" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Add new item</a>             
+                   
                 </div>
             </div>
             
@@ -65,7 +67,7 @@
                 <tbody>
                 @foreach($items as $item)
                     <tr class="border-b hover:bg-orange-100">     
-                        <td><img src="{{$item->url}}" width="400px"></td>               
+                        <td><img src="{{$item->url}}" width="200px"></td>               
                         <td class="p-3 px-5">
                             {{$item->itemName}}
                         </td>
@@ -76,14 +78,12 @@
                             {{$item->price}} lv.
                         </td>
                         <td class="p-3 px-5">
-                            
-                            <a href="/item/{{$item->id}}" name="edit" data class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-black py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>
-                            <form action="/item/{{$item->id}}" class="inline-block">
-                                <button type="submit" name="delete" formmethod="POST" class="text-sm bg-red-500 hover:bg-red-700 text-black py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
-                                {{ csrf_field() }}
-                            </form>
+                            <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="text-lg bg-green-500 hover:bg-green-700 text-black py-2 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>                            
+                            <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="mr-2 text-lg bg-red-500 hover:bg-red-700 text-black py-2 px-2 rounded focus:outline-none focus:shadow-outline">Delete</a>                                                    
                         </td>
-                    </tr>
+                    </tr>    
+                    @include('edit')
+                    @include('delete')                  
                 @endforeach
                 </tbody>
             </table>
@@ -91,4 +91,6 @@
         </div>
     </div>
 </div>
+@include('add')
+
 </x-app-layout>

@@ -33,6 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/item',[ItemsController::class, 'add']);
     Route::post('/item',[ItemsController::class, 'create']);      
     Route::get('/item/{item}', [ItemsController::class, 'edit']);
+    Route::get('/item/{item}', [ItemsController::class, 'delete']);
     Route::post('/item/{item}', [ItemsController::class, 'update']);
 });
 Route::resource('items', 'ItemsController');
