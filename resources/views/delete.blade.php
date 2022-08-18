@@ -1,28 +1,43 @@
-@extends('layouts.modal')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body>
 @foreach($items as $item)
 <!-- Modal -->
-  <div class="modal fade" id="deleteModal{{$item->id}}" role="dialog">
-    <div class="modal-dialog modal-lg">
+  <div class="modal" id="deleteModal{{$item->id}}" role="dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 clas="modal-header">Delete Item</h2>
+        <div class="modal-header" style="background-color:white;">
+          <h2 clas="modal-header" style="color: red;">ВНИМАНИЕ!</h2>
         </div>
         <div class="modal-body">
       <div class="modal-text">
-        <h1>Are you sure that you want to delete this item ?</h1>
-        <p>Once deleted the item is gone forever.</p>
+        <h1>Сигурни ли сте, че искате да изтриете този артикул ?</h1>
+        <p>Веднъж изтрит, този артикул е загубен завинаги.</p>
         </div>
         <div class="modal-footer">
       <form action="/item/{{$item->id}}" class="inline-block" enctype="multipart/form-data">
-             <button type="submit" name="delete" formmethod="POST" class="bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">Delete</button>                
-             <button type="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" data-dismiss="modal">Close</button>
+             <button type="submit" name="delete" formmethod="POST" class="button" style="background-color: red;">Изтрий</button>                
+             <button type="button" class="button" data-dismiss="modal">Затвори</button>
              {{ csrf_field() }}
        </form>
         </div>       
       </div>
     </div>
   </div>
-</div>
 <!--End modal-->
 @endforeach
+</body>
+</html>

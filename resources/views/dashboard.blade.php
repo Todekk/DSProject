@@ -1,85 +1,84 @@
-<x-app-layout>
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Dashboard') }}
-    </h2>
-</x-slot>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+</head>
+<body class="background">
 
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+<div class="">
+    <div class="">
+        <div class="">
             <!-- Filter names and prices in ascending order -->
-            <div class="flex-auto text-left mt-2">
+            <div class="">
                         <form action="/filterName" method="get">
                         {{ csrf_field() }}
-                            <div class="input-group"> 
-                                <span class="input-group-prepend">
-                                        <button type="submit" class="rounded border border-blue-400 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Filter by name</button>
+                            <div class="divLayout"> 
+                                <span class="">
+                                        <button type="submit" class="button">Филтриране по име</button>
                                 </span>
                             </div>
                         </form>
                     </div>
-                    <div class="flex-auto text-left mt-2">
+                    <div class="divLayout">
                         <form action="/filterPrice" method="get">
                         {{ csrf_field() }}
-                            <div class="input-group"> 
-                                <span class="input-group-prepend">
-                                        <button type="submit" class="rounded border border-blue-400 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Filter by price</button>
+                            <div class="divLayout"> 
+                                <span class="">
+                                        <button type="submit" class="button">Филтриране по цена</button>
                                 </span>
                             </div>
                         </form>
                     </div>
                     <!-- Search Bar -->
-                    <div class="flex-auto text-left mt-2">
+                    <div class="">
                         <form action="/filterBySearch" method="get">
                             {{csrf_field()}}
-                            <div class="input-group">                            
-                                <input type="filterBySearch" name="filterBySearch" class="form-control" placeholder="Search" style="border-style: solid; border-width: 3px;">
-                                <span class="input-group-prepend">
-                                        <button type="submit" class="rounded border border-blue-400 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Search</button>
+                            <div class="">                            
+                                <input type="filterBySearch" name="filterBySearch" class="" placeholder="Търси" style="border-style: solid; border-width: 3px;">
+                                <span class="">
+                                        <button type="submit" class="button">Търси</button>
                                 </span>
                                 
                             </div>
                         </form>
                     </div>
-            <div class="flex">
-                <div class="flex-auto text-2xl mb-4">Items List</div>
+            <div class="divLayout">
+                <h2>Aртикули</h2>
                 <!-- Adding a new item -->
-                <div class="flex-auto text-right mt-2">
-                   <a data-toggle="modal" href="#" id="addModal" data-target="#addModal_create" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Add new item</a>             
+                <div class="divLayout">
+                   <a data-toggle="modal" href="#" id="addModal" data-target="#addModal_create" class="addButton">Добави артикул</a>             
                    
                 </div>
             </div>
             
             <!-- Display Information -->
-            <table class="w-full text-md rounded mb-4">
+            <table class="">
                 <thead>
-                <tr class="border-b">
-                    <th class="text-left p-3 px-5">Picture</th>
-                    <th class="text-left p-3 px-5">Item</th>
-                    <th class="text-left p-3 px-5">Description</th>
-                    <th class="text-left p-3 px-5">Price</th>
-                    <th class="text-left p-3 px-5">Actions</th>
-                    <th></th>
+                <tr class="">
+                    <th class="">Снимка</th>
+                    <th class="">Артикул</th>
+                    <th class="">Описание</th>
+                    <th class="">Цена</th>
+                    <th class="">Действия</th>
                 </tr>                
                 </thead>
                 
                 <tbody>
                 @foreach($items as $item)
-                    <tr class="border-b hover:bg-orange-100">     
-                        <td><img src="{{$item->url}}" width="200px"></td>               
-                        <td class="p-3 px-5">
+                    <tr class="">     
+                        <td class="td"><img src="{{$item->url}}" width="200px"></td>               
+                        <td class="td">
                             {{$item->itemName}}
                         </td>
-                        <td class="p-3 px-5">
+                        <td class="td">
                             {{$item->description}}
                         </td>
-                        <td class="p-3 px-5">
+                        <td class="td">
                             {{$item->price}} lv.
                         </td>
-                        <td class="p-3 px-5">
-                            <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="text-lg bg-green-500 hover:bg-green-700 text-black py-2 px-2 rounded focus:outline-none focus:shadow-outline">Edit</a>                            
-                            <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="mr-2 text-lg bg-red-500 hover:bg-red-700 text-black py-2 px-2 rounded focus:outline-none focus:shadow-outline">Delete</a>                                                    
+                        <td class="td">
+                            <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="anchorButton">Редактирай</a>                            
+                            <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="anchorButton">Изтрий</a>                                                    
                         </td>
                     </tr>    
                     @include('edit')
@@ -93,4 +92,5 @@
 </div>
 @include('add')
 
-</x-app-layout>
+</body>
+</html>

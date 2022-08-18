@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('imageName');
             $table->string('path');
             $table->string('url');           
-            $table->integer('user_id')->unsigned()->index();
+            /*$table->integer('user_id')->unsigned()->index();*/
             $table->timestamps();
         });
     }

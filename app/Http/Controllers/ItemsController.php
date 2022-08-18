@@ -24,6 +24,11 @@ class ItemsController extends Controller
             'description' => 'required',
             'price' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ],[
+            'itemName.required' => 'Полето за име е задължително!',
+            'description.required' => 'Полето за описание е задължително!',
+            'price.required' => 'Полето за цена е задължително!',
+            'image.required' => 'Задължително се избира снимка!',
         ]);
         $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('images'), $imageName);
@@ -35,7 +40,7 @@ class ItemsController extends Controller
         $item->itemName = $request->itemName;
         $item->description = $request->description;
         $item->price = $request->price;
-        $item->user_id = auth()->user()->id;
+        //$item->user_id = auth()->user()->id;
         $item->save();
         return redirect('/dashboard')
          ->with('image',$imageName);;
@@ -62,6 +67,11 @@ class ItemsController extends Controller
             'description' => 'required',
             'price' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            ],[
+                'itemName.required' => 'Полето за име е задължително!',
+                'description.required' => 'Полето за описание е задължително!',
+                'price.required' => 'Полето за цена е задължително!',
+                'image.required' => 'Задължително се избира снимка!',
             ]);
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images'), $imageName);
@@ -72,7 +82,7 @@ class ItemsController extends Controller
             $item->itemName = $request->itemName;
             $item->description = $request->description;
             $item->price = $request->price;
-            $item->user_id = auth()->user()->id;
+            //$item->user_id = auth()->user()->id;
             $item->save();
             return redirect('/dashboard');
         }
