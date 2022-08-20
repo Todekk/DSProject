@@ -20,9 +20,14 @@ return new class extends Migration
             $table->double('price');
             $table->string('imageName');
             $table->string('path');
-            $table->string('url');           
+            $table->string('url');  
+            $table->unsignedBigInteger('cat_id'); 
+            $table->unsignedBigInteger('brand_id');         
             /*$table->integer('user_id')->unsigned()->index();*/
             $table->timestamps();
+
+            $table->foreign('brand_id')->references('id')->on('brand');
+            $table->foreign('cat_id')->references('id')->on('category');
         });
     }
 

@@ -38,6 +38,30 @@
                         <span class="text-danger">{{ $errors->first('description') }}</span>
                     @endif
                 </div>
+                <div class="form-group">
+                    <textarea name="brand_id">{{$item->brand_id}}</textarea>  
+                    @if ($errors->has('brand_id'))
+                        <span class="text-danger">{{ $errors->first('brand_id') }}</span>
+                    @endif
+                    <select class="form-group">
+                            <option disabled selected>Марки с техният идентификатор</option>
+                            @foreach($brand as $brands)
+                                <option disabled value="{{$brands->id}}" >{{$brands->id}}, {{$brands->brand_name}}</option>
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <textarea name="cat_id">{{$item->cat_id}}</textarea>  
+                    @if ($errors->has('cat_id'))
+                        <span class="text-danger">{{ $errors->first('cat_id') }}</span>
+                    @endif
+                    <select class="form-group">
+                            <option disabled selected>Категории с техният идентификатор</option>
+                            @foreach($category as $categories)
+                                <option disabled value="{{$categories->id}}" >{{$categories->id}}, {{$categories->category_name}}</option>
+                            @endforeach
+                    </select>
+                </div>    
                 <div class="">
                     <textarea name="price" class="">{{$item->price }}</textarea>	
                     @if ($errors->has('price'))

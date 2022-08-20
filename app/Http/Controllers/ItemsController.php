@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class ItemsController extends Controller
 {
     public function Index()
-    {            
+    {  
+        $brand = Brand::all();
+        $category = Category::all();       
         $items = Item::all(); 
-        return view('dashboard', compact('items'));
+        return view('dashboard', compact('items','brand', 'category'));
     }
     public function Add()
     {
@@ -22,10 +26,16 @@ class ItemsController extends Controller
         $this->validate($request, [
             'itemName' => 'required',
             'description' => 'required',
+            'brand_id'=>'required|exists:brand,id',
+            'cat_id'=>'required|exists:category,id',
             'price' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ],[
             'itemName.required' => 'Полето за име е задължително!',
+            'brand_id.required' => 'Полето за марка е задължително!',
+            'brand_id.exists' => 'Въвели сте грешен идентификатор!',
+            'cat_id.required' => 'Полето за категория е задължително!',
+            'cat_id.exists' => 'Въвели сте грешен идентификатор!',
             'description.required' => 'Полето за описание е задължително!',
             'price.required' => 'Полето за цена е задължително!',
             'image.required' => 'Задължително се избира снимка!',
@@ -37,6 +47,8 @@ class ItemsController extends Controller
         $item->imageName = $imageName;
         $item->path = public_path('images').DIRECTORY_SEPARATOR . $imageName;
         $item->url = "images" . DIRECTORY_SEPARATOR . $imageName;          
+        $item->brand_id = $request->brand_id;
+        $item->cat_id = $request->cat_id;
         $item->itemName = $request->itemName;
         $item->description = $request->description;
         $item->price = $request->price;
@@ -65,10 +77,16 @@ class ItemsController extends Controller
             $this->validate($request, [
             'itemName' => 'required',
             'description' => 'required',
+            'brand_id'=>'required|exists:brand,id',
+            'cat_id'=>'required|exists:category,id',
             'price' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             ],[
                 'itemName.required' => 'Полето за име е задължително!',
+                'brand_id.required' => 'Полето за марка е задължително!',
+                'brand_id.exists' => 'Въвели сте грешен идентификатор!',
+                'cat_id.required' => 'Полето за категория е задължително!',
+                 'cat_id.exists' => 'Въвели сте грешен идентификатор!',
                 'description.required' => 'Полето за описание е задължително!',
                 'price.required' => 'Полето за цена е задължително!',
                 'image.required' => 'Задължително се избира снимка!',
@@ -78,7 +96,9 @@ class ItemsController extends Controller
 
             $item->imageName = $imageName;
             $item->path = public_path('images').DIRECTORY_SEPARATOR . $imageName;
-            $item->url = "images" . DIRECTORY_SEPARATOR . $imageName;          
+            $item->url = "images" . DIRECTORY_SEPARATOR . $imageName;   
+            $item->brand_id = $request->brand_id;
+            $item->cat_id = $request->cat_id;       
             $item->itemName = $request->itemName;
             $item->description = $request->description;
             $item->price = $request->price;

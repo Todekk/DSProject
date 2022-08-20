@@ -29,6 +29,15 @@
     border-radius: 10px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.anchorBCButton{
+  text-decoration: none;
+  text-align: center;
+  border: 3px;
+  background-color: rgb(83, 226, 0);
+  font-weight: bold;
+  border-radius: 10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
 a:link {
     color: rgb(0, 0, 0);
@@ -55,10 +64,10 @@ a:link {
   }
 
   /* Tables */
-  table, th, td {
+  .table, .th, .td {
     border: 1px solid;
   }
-  th{
+  .thBackground{
     background-color: white;
     font-size: large;
   }
@@ -135,3 +144,17 @@ a:link {
     text-decoration: none;
     cursor: pointer;
   }
+
+/* Navbar */
+.navul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(209, 162, 75);
+}
+
+.navli {
+  float: left;
+  margin-right: 5px;
+}
