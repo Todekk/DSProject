@@ -22,11 +22,7 @@
           <h2 clas="modal-header">Добавяне на артикул</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/item" enctype="multipart/form-data"> 
-
-            <div class="form-group">
-                    <input type="file" name="image" class="form-control">
-            </div>
+         <form method="POST" action="/item" enctype="multipart/form-data">
             <div class="form-group">
                     <textarea name="itemName" placeholder='Въведете името на вашият артикул.'></textarea>  
                     @if ($errors->has('itemName'))

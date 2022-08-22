@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ImagesController;
 use App\Actions\Fortify\CreateNewUser;
 
 /*
@@ -47,7 +48,14 @@ Route::post('/brand/{brand}', [BrandsController::class, 'update']);
 Route::get('/categories',[CategoriesController::class, 'Index'])->name('categories');
 Route::get('/category',[CategoriesController::class, 'add']);
 Route::post('/category',[CategoriesController::class, 'create']);      
-Route::get('/category/{category}', [CategoriesController::class, 'edit']);
+Route::get('/category/{category}', [CategoriesController::class, 'edit'])->name('edit');
 Route::get('/category/{category}', [CategoriesController::class, 'delete']);
 Route::post('/category/{category}', [CategoriesController::class, 'update']);
+//Images
+Route::get('/image',[ImagesController::class, 'Index']);
+Route::get('/image',[ImagesController::class, 'add']);
+Route::post('/images',[ImagesController::class, 'create']);      
+Route::get('/images/{image}', [ImagesController::class, 'edit'])->name('edit');
+Route::get('/images/{image}', [ImagesController::class, 'delete']);
+Route::post('/images/{image}', [ImagesController::class, 'update']);
 });

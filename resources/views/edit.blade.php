@@ -20,12 +20,6 @@
         </div>
         <div class="modal-body">
         <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
-                 <div class="">
-                    <input type="file" name="image">
-                    @if ($errors->has('image'))
-                        <span class="text-danger">{{ $errors->first('image') }}</span>
-                    @endif
-                </div>
                 <div class="">
                     <textarea name="itemName" class="">{{$item->itemName }}</textarea>	
                     @if ($errors->has('itemName'))

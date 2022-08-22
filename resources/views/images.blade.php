@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Brands</title>
+<title>Dashboard</title>
 </head>
-<body class="background">
-
-
+<body class="background">   
 <!-- Filters -->
 @if(Auth::guest())
 <h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a style="color:white" href="{{ route('login') }}">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
 @endif
             <table>
                 <tr>
-                    <th><h2 style="color:white;">Марки</h2></th>
+                    <th><h2 style="color:white;">Категории</h2></th>
                     @if(Auth::user())
                     <th> <div class="divLayout">
-                   <a data-toggle="modal" href="#" id="addBrandModal" data-target="#addBrandModal_create" class="addButton">Добави Марка</a> 
+                   <a data-toggle="modal" href="#" id="addImageModal" data-target="#addImageModal_create" class="addButton">Добави категория</a> 
                     </div>
                     @endif
                 </th>
@@ -30,29 +28,28 @@
             <table class="table">
                 <thead>
                 <tr class="tr">
-                    <th class="thBackground th">Марки</th>
+                    <th class="thBackground th">Категория</th>
                     <th class="thBackground th">Действия</th>
                 </tr>                
                 </thead>
                 
                 <tbody>
-                @foreach($brands as $brand)
-                    <tr class="tr">             
+                @foreach($images as $image)
+                    <tr class="tr">
+                        <td class="td"><img src="{{$image->url}}" width="200px"></td>                    
                         <td class="td">
-                            {{$brand->brand_name}}
-                        </td>                      
-                        <td class="td">
-                            <a data-toggle="modal" href="#" data-target="#editBrandModal{{$brand->id}}" class="anchorBCButton">Редактирай</a>                            
-                            <a data-toggle="modal" href="#" data-target="#deleteBrandModal{{$brand->id}}" class="anchorBCButton">Изтрий</a>                                                    
+                            <a data-toggle="modal" href="#editImageModal{{$image->id}}" id="showEditModal" class="anchorBCButton">Редактирай</a>                            
+                            <a data-toggle="modal" href="#" data-target="#deleteImageModal{{$image->id}}" class="anchorBCButton">Изтрий</a>                                                    
                         </td>
                     </tr>    
-                    @include('editbrand')
-                    @include('deletebrand')                  
+                               
                 @endforeach
                 </tbody>
             </table>
-    
-@include('addbrand')
+@include('editimage')
+@include('deleteimage')      
+@include('addimage')
+
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* Buttons */
 .button{
-    background-color: rgb(6, 184, 0);
+    background-color: rgb(18, 122, 240);
     text-decoration: none;
     text-align: center;
     border: 3px;
@@ -13,7 +13,7 @@
     text-decoration: none;
     text-align: center;
     border: 3px;
-    background-color: rgb(83, 226, 0);
+    background-color: rgb(18, 122, 240);
     padding: 14px 25px;
     font-weight: bold;
     border-radius: 10px;
@@ -23,7 +23,7 @@
     text-decoration: none;
     text-align: center;
     border: 3px;
-    background-color: rgb(83, 226, 0);
+    background-color: rgb(18, 122, 240);
     padding: 14px 25px;
     font-weight: bold;
     border-radius: 10px;
@@ -33,7 +33,7 @@
   text-decoration: none;
   text-align: center;
   border: 3px;
-  background-color: rgb(83, 226, 0);
+  background-color: rgb(18, 122, 240);
   font-weight: bold;
   border-radius: 10px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -45,7 +45,7 @@ a:link {
   
  
   a:visited {
-    background-color: rgb(128, 228, 70);
+    background-color: rgb(36, 130, 238);
     
   }
   
@@ -60,7 +60,7 @@ a:link {
     margin-bottom: 16px;
   }
   .background{
-    background-color: rgb(240, 189, 96);
+    background-color: rgb(51, 51, 51);
   }
 
   /* Tables */
@@ -68,7 +68,12 @@ a:link {
     border: 1px solid;
   }
   .thBackground{
-    background-color: white;
+    background-color: rgb(73, 73, 73);
+    font-size: large;
+  }
+
+  .tr{
+    background-color: rgb(73, 73, 73);
     font-size: large;
   }
 
@@ -82,17 +87,17 @@ a:link {
        
 /* Modals */
 .modal-body{
-    background-color: rgb(255, 208, 0);
+    background-color: rgb(51, 51, 51);
 }
 .modal-header {
-    background-color: rgb(197, 161, 0);
+    background-color: rgb(31, 31, 31);
     padding: 5px;
     text-align: center;
-    color: black;
+    color: white;
     font-size: 25px;
   }
   .modal-footer{
-    background-color: rgb(255, 208, 0);
+    background-color: rgb(51, 51, 51);
       text-align: center;
       padding: 2px 16px;
   }
@@ -104,7 +109,7 @@ a:link {
   }
   .modal-text{
       text-align: center;
-      color: black;
+      color: white;
       padding: 30px;
       margin-bottom: 25px;
   }
@@ -123,7 +128,7 @@ a:link {
   
   
   .modal-content {
-    background-color: rgb(255, 208, 0);
+    background-color: rgb(51, 51, 51);
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
@@ -151,7 +156,9 @@ a:link {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(209, 162, 75);
+  background-color: rgba(32, 32, 32, 0.603);
+  color: white;
+  letter-spacing: 2px;
 }
 
 .navli {

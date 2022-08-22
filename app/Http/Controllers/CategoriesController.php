@@ -48,7 +48,7 @@ class CategoriesController extends Controller
                 'category_name.required' => 'Полето за име е задължително!',
             ]);
             $category->category_name = $request->category_name;
-            //$category->user_id = auth()->user()->id;
+            $category->user_id = auth()->user()->id;
             $category->save();
             return redirect('/categories');
         }

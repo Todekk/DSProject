@@ -22,7 +22,6 @@ class BrandsController extends Controller
             ]);
             $brand = new Brand();
             $brand->brand_name = $request->brand_name;
-            //$brand->user_id = auth()->user()->id;
             $brand->save();
             return redirect('/brands');
     }
@@ -48,7 +47,6 @@ class BrandsController extends Controller
                 'brand_name.required' => 'Полето за име е задължително!',
             ]);
             $brand->brand_name = $request->brand_name;
-            //$brand->user_id = auth()->user()->id;
             $brand->save();
             return redirect('/brands');
         }

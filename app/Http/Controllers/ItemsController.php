@@ -29,7 +29,6 @@ class ItemsController extends Controller
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ],[
             'itemName.required' => 'Полето за име е задължително!',
             'brand_id.required' => 'Полето за марка е задължително!',
@@ -38,15 +37,9 @@ class ItemsController extends Controller
             'cat_id.exists' => 'Въвели сте грешен идентификатор!',
             'description.required' => 'Полето за описание е задължително!',
             'price.required' => 'Полето за цена е задължително!',
-            'image.required' => 'Задължително се избира снимка!',
         ]);
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
 
         $item = new Item();
-        $item->imageName = $imageName;
-        $item->path = public_path('images').DIRECTORY_SEPARATOR . $imageName;
-        $item->url = "images" . DIRECTORY_SEPARATOR . $imageName;          
         $item->brand_id = $request->brand_id;
         $item->cat_id = $request->cat_id;
         $item->itemName = $request->itemName;
@@ -54,8 +47,7 @@ class ItemsController extends Controller
         $item->price = $request->price;
         //$item->user_id = auth()->user()->id;
         $item->save();
-        return redirect('/dashboard')
-         ->with('image',$imageName);;
+        return redirect('/dashboard');
     }
     public function Edit(Item $item)
     {
@@ -68,8 +60,7 @@ class ItemsController extends Controller
         }
     }
     public function Update(Request $request, Item $item){
-        if(isset($_POST['delete'])){
-            unlink($item->path);
+        if(isset($_POST['delete'])){;
             $item->delete();
             return redirect('/dashboard');
         }
@@ -80,7 +71,6 @@ class ItemsController extends Controller
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             ],[
                 'itemName.required' => 'Полето за име е задължително!',
                 'brand_id.required' => 'Полето за марка е задължително!',
@@ -89,7 +79,6 @@ class ItemsController extends Controller
                  'cat_id.exists' => 'Въвели сте грешен идентификатор!',
                 'description.required' => 'Полето за описание е задължително!',
                 'price.required' => 'Полето за цена е задължително!',
-                'image.required' => 'Задължително се избира снимка!',
             ]);
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images'), $imageName);

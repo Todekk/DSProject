@@ -36,18 +36,18 @@
             </div>
       </form>
 </li>
-<li class="navli" style="float:right">
+<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">
     @if(Auth::user())
     <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
     @endif
 </li>
 </ul>
 @if(Auth::guest())
-<h4>Изглежда, че не сте влезли с потребителски акаунт, <a href="{{ route('login') }}">влезте</a> в профила си или се <a href="{{ route('register') }}">регистрирайте</a>.</h4>
+<h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a href="{{ route('login') }}" style="color:white">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
 @endif
             <table>
                 <tr>
-                    <th><h2>Aртикули</h2></th>
+                    <th><h2 style="color:white;">Aртикули</h2></th>
                     @if(Auth::user())
                     <th> <div class="divLayout">
                    <a data-toggle="modal" href="#" id="addModal" data-target="#addModal_create" class="addButton">Добави артикул</a> 

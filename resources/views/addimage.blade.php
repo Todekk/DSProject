@@ -1,17 +1,16 @@
 
 <!-- Modal -->
-  <div class="modal" id="addCategoryModal_create" role="dialog">
+<div class="modal" id="addImageModal_create" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 clas="modal-header">Добавяне на категория</h2>
+          <h2 clas="modal-header">Добавяне на снимка</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/category" enctype="multipart/form-data"> 
+         <form method="POST" action="/images" enctype="multipart/form-data"> 
+            <div class="form-group">                
             <div class="form-group">
-                    <textarea name="category_name" placeholder='Въведете името на марката.'></textarea>  
-                    @if ($errors->has('category_name'))
-                        <span class="text-danger">{{ $errors->first('category_name') }}</span>
-                    @endif
+                    <input type="file" name="image" class="form-control">
+            </div>                     
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="button">Добави Категория</button>
