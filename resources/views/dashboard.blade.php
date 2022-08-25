@@ -5,7 +5,17 @@
 </head>
 <body class="background">
 
-
+<!-- Nav Bar -->
+@if(Auth::user())
+<ul class="navul">    
+<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">    
+    <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>    
+</li>
+  <li class="navli"><a class="button" href="/images">Снимки</a></li>
+  <li class="navli"><a class="button" href="/categories">Категории</a></li>
+  <li class="navli"><a class="button" href="/brands">Марки</a></li>
+</ul>
+@endif
 <!-- Filters -->
 <ul class="navul">    
   <li class="navli"> <form action="/filterName" method="get">
@@ -36,11 +46,6 @@
             </div>
       </form>
 </li>
-<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">
-    @if(Auth::user())
-    <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
-    @endif
-</li>
 </ul>
 @if(Auth::guest())
 <h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a href="{{ route('login') }}" style="color:white">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
@@ -65,6 +70,7 @@
             <table class="table">
                 <thead>
                 <tr class="tr">
+                    <th class="thBackground th">Любими</th>
                     <th class="thBackground th">Снимка</th>
                     <th class="thBackground th">Артикул</th>
                     <th class="thBackground th">Описание</th>
@@ -77,8 +83,14 @@
                 
                 <tbody>
                 @foreach($items as $item)
-                    <tr class="tr">     
-                        <td class="td"><img src="{{$item->url}}" width="200px"></td>               
+                    <tr class="tr">  
+                        <td><form action="/favourite/set" method="get">
+                        {{ csrf_field() }}
+                            <button class="anchorButton" style="background-color:yellow">⭐</button>        
+                            </form> </td>   
+                        <td class="td">
+                        <img src="{{$item->image->url}}" width="200px">
+                        </td>               
                         <td class="td">
                             {{$item->itemName}}
                         </td>
@@ -89,14 +101,14 @@
                             {{$item->brand->brand_name}}
                         </td>
                         <td class="td">
-                           {{$item->category->category_name}}
+                           {{$item->category->category_name}}            
                         </td>
                         <td class="td">
                             {{$item->price}} lv.
                         </td>
                         <td class="td">
-                            <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="anchorButton">Редактирай</a>                            
-                            <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="anchorButton">Изтрий</a>                                                    
+                            <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="anchorButton">Редактирай</a>                        
+                            <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="anchorButton">Изтрий</a>                                                                             
                         </td>
                     </tr>    
                     @include('edit')

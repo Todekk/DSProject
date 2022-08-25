@@ -19,12 +19,14 @@ return new class extends Migration
             $table->string('description');
             $table->double('price');             
             $table->unsignedBigInteger('cat_id'); 
-            $table->unsignedBigInteger('brand_id');         
-            //$table->unsignedBigInteger('image_id');   
+            $table->unsignedBigInteger('brand_id');  
+            $table->unsignedBigInteger('mainimage_id');     
+            $table->unsignedBigInteger('imageone_id')->nullable();
             /*$table->integer('user_id')->unsigned()->index();*/
             $table->timestamps();
 
-            //$table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('mainimage_id')->references('id')->on('images');
+            $table->foreign('imageone_id')->references('id')->on('images');
             $table->foreign('brand_id')->references('id')->on('brand');
             $table->foreign('cat_id')->references('id')->on('category');
         });

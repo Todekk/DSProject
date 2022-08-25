@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {

@@ -9,7 +9,7 @@
         <div class="modal-body">
       <div class="modal-text">
         <h1>Сигурни ли сте, че искате да изтриете тази категория ?</h1>
-        <p>Веднъж изтритa, този категория е загубена завинаги.</p>
+        <p>Веднъж изтритa, тази категория е загубена завинаги.</p>
         </div>
         <div class="modal-footer">
       <form action="/category/{{$category->id}}" class="inline-block" enctype="multipart/form-data">

@@ -25,7 +25,7 @@
         <div class="modal-body">
       <div class="modal-text">
         <h1>Сигурни ли сте, че искате да изтриете тази марка ?</h1>
-        <p>Веднъж изтритa, този марка е загубена завинаги.</p>
+        <p>Веднъж изтритa, тази марка е загубена завинаги.</p>
         </div>
         <div class="modal-footer">
       <form action="/brand/{{$brand->id}}" class="inline-block" enctype="multipart/form-data">

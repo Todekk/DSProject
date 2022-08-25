@@ -20,6 +20,18 @@
         </div>
         <div class="modal-body">
         <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
+        <div class="form-group">
+                    <textarea name="mainimage_id"  placeholder='Въведе идентификатор за нужната снимка.'></textarea>  
+                    @if ($errors->has('mainimage_id'))
+                        <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
+                    @endif                    
+                </div>
+                <div class="form-group">
+                    <textarea name="imageone_id"  placeholder='Въведе идентификатор за нужната снимка.'></textarea>  
+                    @if ($errors->has('imageone_id'))
+                        <span class="text-danger">{{ $errors->first('imageone_id') }}</span>
+                    @endif                    
+                </div>
                 <div class="">
                     <textarea name="itemName" class="">{{$item->itemName }}</textarea>	
                     @if ($errors->has('itemName'))
@@ -39,8 +51,8 @@
                     @endif
                     <select class="form-group">
                             <option disabled selected>Марки с техният идентификатор</option>
-                            @foreach($brand as $brands)
-                                <option disabled value="{{$brands->id}}" >{{$brands->id}}, {{$brands->brand_name}}</option>
+                            @foreach($brands as $brnd)
+                                <option disabled value="{{$brnd->id}}" >{{$brnd->id}}, {{$brnd->brand_name}}</option>
                             @endforeach
                         </select>
                 </div>
@@ -51,8 +63,8 @@
                     @endif
                     <select class="form-group">
                             <option disabled selected>Категории с техният идентификатор</option>
-                            @foreach($category as $categories)
-                                <option disabled value="{{$categories->id}}" >{{$categories->id}}, {{$categories->category_name}}</option>
+                            @foreach($categories as $cat)
+                                <option disabled value="{{$cat->id}}" >{{$cat->id}}, {{$cat->category_name}}</option>
                             @endforeach
                     </select>
                 </div>    

@@ -13,12 +13,22 @@ class Item extends Model
     }
     public function Brand()
     {
-        return $this->belongsTo(Brand::class, 'id');
+        return $this->hasOne(Brand::class, 'id');
+
+    }
+    public function Image()
+    {
+        return $this->belongsTo(Image::class, 'mainimage_id');
+
+    }
+    public function ItemImages()
+    {
+        return $this->hasMany(Image::class, 'imageone_id');
 
     }
     public function Category()
     {
-        return $this->belongsTo(Category::class, 'id');
+        return $this->hasOne(Category::class, 'id');
 
     }
 }

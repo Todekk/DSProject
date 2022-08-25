@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Image;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
 class ItemsController extends Controller
 {
     public function Index()
     {  
-        $brand = Brand::all();
-        $category = Category::all();       
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();       
         $items = Item::all(); 
-        return view('dashboard', compact('items','brand', 'category'));
+        return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function Add()
     {
@@ -25,12 +28,17 @@ class ItemsController extends Controller
     {
         $this->validate($request, [
             'itemName' => 'required',
+            'mainimage_id' => 'required|exists:images,id',
+            'imageone_id' => 'required|exists:images,id',
             'description' => 'required',
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
             'price' => 'required',
         ],[
             'itemName.required' => 'Полето за име е задължително!',
+            'mainimage_id.required' => 'Полето за главна снимка е задължително!',
+            'mainimage_id.exists' => 'Въвели сте грешен идентификатор!',
+            'imageone_id.exists' => 'Въвели сте грешен идентификатор!',
             'brand_id.required' => 'Полето за марка е задължително!',
             'brand_id.exists' => 'Въвели сте грешен идентификатор!',
             'cat_id.required' => 'Полето за категория е задължително!',
@@ -40,6 +48,8 @@ class ItemsController extends Controller
         ]);
 
         $item = new Item();
+        $item->mainimage_id = $request->mainimage_id;
+        $item->imageone_id = $request->imageone_id;
         $item->brand_id = $request->brand_id;
         $item->cat_id = $request->cat_id;
         $item->itemName = $request->itemName;
@@ -49,16 +59,7 @@ class ItemsController extends Controller
         $item->save();
         return redirect('/dashboard');
     }
-    public function Edit(Item $item)
-    {
-        if(auth()->user()->id == $item->user_id)
-        {
-            return view('edit', compact('item'));
-        }
-        else{
-            return redirect('/dashboard');
-        }
-    }
+    
     public function Update(Request $request, Item $item){
         if(isset($_POST['delete'])){;
             $item->delete();
@@ -67,12 +68,17 @@ class ItemsController extends Controller
         else{
             $this->validate($request, [
             'itemName' => 'required',
+            'mainimage_id' => 'required|exists:images,id',
+            'imageone_id' => 'exists:images,id',
             'description' => 'required',
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
             'price' => 'required',
             ],[
                 'itemName.required' => 'Полето за име е задължително!',
+                'mainimage_id.required' => 'Полето за главна снимка е задължително!',
+                'mainimage_id.exists' => 'Въвели сте грешен идентификатор!',
+                'imageone_id.exists' => 'Въвели сте грешен идентификатор!',
                 'brand_id.required' => 'Полето за марка е задължително!',
                 'brand_id.exists' => 'Въвели сте грешен идентификатор!',
                 'cat_id.required' => 'Полето за категория е задължително!',
@@ -80,14 +86,11 @@ class ItemsController extends Controller
                 'description.required' => 'Полето за описание е задължително!',
                 'price.required' => 'Полето за цена е задължително!',
             ]);
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-
-            $item->imageName = $imageName;
-            $item->path = public_path('images').DIRECTORY_SEPARATOR . $imageName;
-            $item->url = "images" . DIRECTORY_SEPARATOR . $imageName;   
+           
             $item->brand_id = $request->brand_id;
-            $item->cat_id = $request->cat_id;       
+            $item->cat_id = $request->cat_id;    
+            $item->mainimage_id = $request->mainimage_id;
+            $item->imageone_id = $request->imageone_id;       
             $item->itemName = $request->itemName;
             $item->description = $request->description;
             $item->price = $request->price;
@@ -99,25 +102,72 @@ class ItemsController extends Controller
 
     public function FilterName(Request $request)
     {
-        $items = DB::table('items')
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();       
+        $items = Item::with('brand', 'category', 'image')
             ->orderBy('itemName', 'asc')->get(); 
-        return view('dashboard', compact('items'));
+            return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function FilterPrice(Request $request)
     {
-        
-        $items = DB::table('items')
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();          
+        $items = Item::with('brand', 'category', 'image')
             ->orderBy('price', 'asc')->get(); 
-        return view('dashboard', compact('items'));
+        return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function FilterBySearch(Request $request)
     {
-        
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();                   
         $filterBySearch = $request->get('filterBySearch');
-        $items = DB::table('items')
+        $startFavourites = Session::put('Favourites', ['Start']); 
+        
+        $items = Item::with('brand', 'category', 'image')
+            ->join('brand', 'items.brand_id', '=' , 'brand.id')
+            ->join('category', 'items.cat_id', '=' , 'category.id')
             ->where('price', 'LIKE', '%' .$filterBySearch.'%')
             ->orWhere('itemName', 'LIKE', '%' .$filterBySearch.'%')
+            ->orWhere('category.category_name', 'LIKE', '%' .$filterBySearch.'%')
+            ->orWhere('brand.brand_name', 'LIKE', '%' .$filterBySearch.'%')
             ->orderBy('price', 'asc')->get(); 
-        return view('dashboard', compact('items'));
+            $sessionRequest = Session::push('Favourites', $filterBySearch); 
+            $sessionRequest = Session::push('Favourites', $filterBySearch); 
+            $sessionRequest = Session::push('Favourites', $filterBySearch); 
+            $sessionRequest = Session::push('Favourites', $filterBySearch);   
+            return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
+    public function FilterCategory(Request $request)
+    {
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();
+        $filterByCategory = $request->get('filterByCategory');       
+        $items = Item::with('brand', 'category', 'image')
+            ->join('category', 'items.cat_id', '=' , 'category.id')
+            ->whereHas('category.category_name', 'LIKE', '%' . $filterByCategory . '%')->get(); 
+            return view('dashboard', compact('items','brands', 'categories', 'images'));
+    }
+
+    public function SaveFavourite(Request $request){
+        $brands = Brand::all();
+        $images = Image::all();
+        $categories = Category::all();        
+        $items = Item::all();
+        $favourite = $request->get('fav');
+        $sessionRequest = Session::push('Favourites', $favourite);
+        return view('dashboard', compact('items','brands', 'categories', 'images'));
+    }
+    public function AccessSession(Request $request){        
+        //$request = Session::all([]);
+        dd(Session::get('Favourites'));
+        
+    }
+    public function DeleteFavourite(Request $request) {
+        $request->session()->forget('Favourites');
+        echo "Data has been removed from session.";
+     }
 }

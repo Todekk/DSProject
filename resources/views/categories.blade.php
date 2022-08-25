@@ -4,9 +4,17 @@
 <title>Categories</title>
 </head>
 <body class="background">
-
-
-<!-- Filters -->
+<!-- Nav Bar-->
+@if(Auth::user())
+<ul class="navul">    
+<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">    
+    <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>    
+</li>
+  <li class="navli"><a class="button" href="/dashboard">Артикули</a></li>
+  <li class="navli"><a class="button" href="/images">Снимки</a></li>
+  <li class="navli"><a class="button" href="/brands">Марки</a></li>
+</ul>
+@endif
 @if(Auth::guest())
 <h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a style="color:white" href="{{ route('login') }}">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
 @endif
