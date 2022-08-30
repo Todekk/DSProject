@@ -13,20 +13,23 @@
     </head>
     <body>
 <!-- Modal -->
-  <div class="modal" id="addImageModal_create" role="dialog">
+  <div class="modal" id="addSecondaryImageModal_creation" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h2 clas="modal-header">Добавяне на снимка</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/images" enctype="multipart/form-data">
-            <div class="form-group">
-            <div class="col-md-6">
-                            <input type="file" name="image" class="form-control">
-                        </div>
-                        @if ($errors->has('image'))
-                        <span class="text-danger">{{ $errors->first('image') }}</span>
+            <form method="POST" action="/itemimages" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                    @if ($errors->has('itemimage'))
+                        <span class="text-danger">{{ $errors->first('itemimage') }}</span>
                     @endif
+                    <div>
+                        <textarea name="item_id"  placeholder='Въведе идентификатора на артикула.'></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="button">Добави снимка</button>

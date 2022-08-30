@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\BrandsController;
@@ -18,10 +19,9 @@ use App\Http\Controllers\ItemPreviewController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Favourites
-Route::get('session/get',[ItemsController::class, 'accessSession']);
-Route::get('/favourite/set',[ItemsController::class, 'saveFavourite']);
-Route::get('session/remove',[ItemsController::class, 'deleteFavourite']);
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,7 +37,7 @@ Route::get('/filterByCategory',[ItemsController::class, 'filterByCategory']);
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 //Items
 Route::get('/item',[ItemsController::class, 'add']);
-Route::post('/item',[ItemsController::class, 'create']); 
+Route::post('/item',[ItemsController::class, 'create']);
 Route::get('/item/{item}', [ItemsController::class, 'delete']);
 Route::post('/item/{item}', [ItemsController::class, 'update']);
 Route::resource('items', 'ItemsController');
@@ -59,7 +59,16 @@ Route::get('/image',[ImagesController::class, 'add']);
 Route::post('/images',[ImagesController::class, 'create']);
 Route::get('/image/{image}',[ImagesController::class, 'delete']);
 Route::post('/image/{image}',[ImagesController::class, 'update']);
+Route::post('/itemimages',[ItemImageController::class, 'create']);
+Route::get('/itemimage/{image}',[ItemImageController::class, 'delete']);
+Route::post('/itemimage/{image}',[ItemImageController::class, 'update']);
 //Item Preview
 Route::get('/itempreview', [ItemPreviewController::class, 'Index']);
-
+//Favourites
+Route::get('/filterByFavourite', [ItemsController::class, 'filterByFavourite']);
+Route::patch('/{item}',[ItemsController::class, 'saveFavourite']);
+Route::get('session/get',[ItemsController::class, 'accessSession']);
+Route::get('session/remove',[ItemsController::class, 'deleteFavourite']);
+//Categories
+Route::get('/filterByCategory', [ItemsController::class, 'filterByCategory']);
 });

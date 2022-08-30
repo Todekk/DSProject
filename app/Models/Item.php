@@ -13,7 +13,7 @@ class Item extends Model
     }
     public function Brand()
     {
-        return $this->hasOne(Brand::class, 'id');
+        return $this->belongsTo(Brand::class, 'brand_id');
 
     }
     public function Image()
@@ -23,12 +23,13 @@ class Item extends Model
     }
     public function ItemImages()
     {
-        return $this->hasMany(Image::class, 'imageone_id');
+        return $this->hasMany(ItemImage::class);
 
     }
     public function Category()
     {
-        return $this->hasOne(Category::class, 'id');
+        return $this->belongsTo(Category::class, 'cat_id');
 
     }
+    protected $fillable = ["isFavourite"];
 }

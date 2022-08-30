@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Models\Image;
 
 class ImagesController extends Controller
 {
     public function Index()
-    {         
-        $images = Image::all(); 
-        return view('images', compact('images'));
+    {
+        $itemimages = ItemImage::all();
+        $images = Image::all();
+        return view('images', compact('images', 'itemimages'));
     }
     public function Add()
     {
@@ -24,12 +26,12 @@ class ImagesController extends Controller
             'image.required' => 'Задължително се избира снимка!',
         ]);
         $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('itemimages'), $imageName);
+        $request->image->move(public_path('allimages'), $imageName);
 
         $item = new Image();
         $item->imageName = $imageName;
-        $item->path = public_path('itemimages').DIRECTORY_SEPARATOR . $imageName;
-        $item->url = "itemimages" . DIRECTORY_SEPARATOR . $imageName; 
+        $item->path = public_path('allimages').DIRECTORY_SEPARATOR . $imageName;
+        $item->url = "allimages" . DIRECTORY_SEPARATOR . $imageName;
         //$item->user_id = auth()->user()->id;
         $item->save();
         return redirect('/images')

@@ -14,19 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->string('itemName');
             $table->string('description');
-            $table->double('price');             
-            $table->unsignedBigInteger('cat_id'); 
-            $table->unsignedBigInteger('brand_id');  
-            $table->unsignedBigInteger('mainimage_id');     
-            $table->unsignedBigInteger('imageone_id')->nullable();
+            $table->double('price');
+            $table->unsignedBigInteger('cat_id');
+            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('mainimage_id');
+            $table->boolean('isFavourite')->nullable();
             /*$table->integer('user_id')->unsigned()->index();*/
             $table->timestamps();
 
             $table->foreign('mainimage_id')->references('id')->on('images');
-            $table->foreign('imageone_id')->references('id')->on('images');
             $table->foreign('brand_id')->references('id')->on('brand');
             $table->foreign('cat_id')->references('id')->on('category');
         });

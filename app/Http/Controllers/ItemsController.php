@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\DB;
 class ItemsController extends Controller
 {
     public function Index()
-    {  
+    {
+
         $brands = Brand::all();
         $images = Image::all();
-        $categories = Category::all();       
-        $items = Item::all(); 
+        $categories = Category::all();
+        $items = Item::paginate(10);
         return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function Add()
@@ -29,7 +30,6 @@ class ItemsController extends Controller
         $this->validate($request, [
             'itemName' => 'required',
             'mainimage_id' => 'required|exists:images,id',
-            'imageone_id' => 'required|exists:images,id',
             'description' => 'required',
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
@@ -38,7 +38,6 @@ class ItemsController extends Controller
             'itemName.required' => 'Полето за име е задължително!',
             'mainimage_id.required' => 'Полето за главна снимка е задължително!',
             'mainimage_id.exists' => 'Въвели сте грешен идентификатор!',
-            'imageone_id.exists' => 'Въвели сте грешен идентификатор!',
             'brand_id.required' => 'Полето за марка е задължително!',
             'brand_id.exists' => 'Въвели сте грешен идентификатор!',
             'cat_id.required' => 'Полето за категория е задължително!',
@@ -49,7 +48,6 @@ class ItemsController extends Controller
 
         $item = new Item();
         $item->mainimage_id = $request->mainimage_id;
-        $item->imageone_id = $request->imageone_id;
         $item->brand_id = $request->brand_id;
         $item->cat_id = $request->cat_id;
         $item->itemName = $request->itemName;
@@ -59,7 +57,7 @@ class ItemsController extends Controller
         $item->save();
         return redirect('/dashboard');
     }
-    
+
     public function Update(Request $request, Item $item){
         if(isset($_POST['delete'])){;
             $item->delete();
@@ -69,7 +67,6 @@ class ItemsController extends Controller
             $this->validate($request, [
             'itemName' => 'required',
             'mainimage_id' => 'required|exists:images,id',
-            'imageone_id' => 'exists:images,id',
             'description' => 'required',
             'brand_id'=>'required|exists:brand,id',
             'cat_id'=>'required|exists:category,id',
@@ -78,7 +75,6 @@ class ItemsController extends Controller
                 'itemName.required' => 'Полето за име е задължително!',
                 'mainimage_id.required' => 'Полето за главна снимка е задължително!',
                 'mainimage_id.exists' => 'Въвели сте грешен идентификатор!',
-                'imageone_id.exists' => 'Въвели сте грешен идентификатор!',
                 'brand_id.required' => 'Полето за марка е задължително!',
                 'brand_id.exists' => 'Въвели сте грешен идентификатор!',
                 'cat_id.required' => 'Полето за категория е задължително!',
@@ -86,11 +82,10 @@ class ItemsController extends Controller
                 'description.required' => 'Полето за описание е задължително!',
                 'price.required' => 'Полето за цена е задължително!',
             ]);
-           
+
             $item->brand_id = $request->brand_id;
-            $item->cat_id = $request->cat_id;    
+            $item->cat_id = $request->cat_id;
             $item->mainimage_id = $request->mainimage_id;
-            $item->imageone_id = $request->imageone_id;       
             $item->itemName = $request->itemName;
             $item->description = $request->description;
             $item->price = $request->price;
@@ -104,28 +99,27 @@ class ItemsController extends Controller
     {
         $brands = Brand::all();
         $images = Image::all();
-        $categories = Category::all();       
+        $categories = Category::all();
         $items = Item::with('brand', 'category', 'image')
-            ->orderBy('itemName', 'asc')->get(); 
+            ->orderBy('itemName', 'asc')->paginate(10);
             return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function FilterPrice(Request $request)
     {
         $brands = Brand::all();
         $images = Image::all();
-        $categories = Category::all();          
+        $categories = Category::all();
         $items = Item::with('brand', 'category', 'image')
-            ->orderBy('price', 'asc')->get(); 
+            ->orderBy('price', 'asc')->paginate(10);
         return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
     public function FilterBySearch(Request $request)
     {
         $brands = Brand::all();
         $images = Image::all();
-        $categories = Category::all();                   
+        $categories = Category::all();
         $filterBySearch = $request->get('filterBySearch');
-        $startFavourites = Session::put('Favourites', ['Start']); 
-        
+
         $items = Item::with('brand', 'category', 'image')
             ->join('brand', 'items.brand_id', '=' , 'brand.id')
             ->join('category', 'items.cat_id', '=' , 'category.id')
@@ -133,41 +127,55 @@ class ItemsController extends Controller
             ->orWhere('itemName', 'LIKE', '%' .$filterBySearch.'%')
             ->orWhere('category.category_name', 'LIKE', '%' .$filterBySearch.'%')
             ->orWhere('brand.brand_name', 'LIKE', '%' .$filterBySearch.'%')
-            ->orderBy('price', 'asc')->get(); 
-            $sessionRequest = Session::push('Favourites', $filterBySearch); 
-            $sessionRequest = Session::push('Favourites', $filterBySearch); 
-            $sessionRequest = Session::push('Favourites', $filterBySearch); 
-            $sessionRequest = Session::push('Favourites', $filterBySearch);   
+            ->orderBy('price', 'asc')->paginate(10);
             return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
-    public function FilterCategory(Request $request)
+    public function FilterByFavourite(Request $request)
     {
         $brands = Brand::all();
         $images = Image::all();
         $categories = Category::all();
-        $filterByCategory = $request->get('filterByCategory');       
         $items = Item::with('brand', 'category', 'image')
-            ->join('category', 'items.cat_id', '=' , 'category.id')
-            ->whereHas('category.category_name', 'LIKE', '%' . $filterByCategory . '%')->get(); 
-            return view('dashboard', compact('items','brands', 'categories', 'images'));
-    }
-
-    public function SaveFavourite(Request $request){
-        $brands = Brand::all();
-        $images = Image::all();
-        $categories = Category::all();        
-        $items = Item::all();
-        $favourite = $request->get('fav');
-        $sessionRequest = Session::push('Favourites', $favourite);
+            ->where('isFavourite',true)
+            ->orderBy('price', 'asc')->paginate(10);
         return view('dashboard', compact('items','brands', 'categories', 'images'));
     }
-    public function AccessSession(Request $request){        
+
+    public function SaveFavourite(Request $request, Item $item){
+        $item -> update(['isFavourite'=> !$item->isFavourite]);
+        return redirect('/dashboard');
+        /*if($isFavourite == true){
+            //$sessionRequest = Session::push('items.id', $favourite);
+
+        }*/
+        //$sessionRequest = Session::push('Favourites', $favourite);
+
+    }
+    public function AddFavourite(Request $request){
+
+        $request = Session::push('items.id', 'Favourite');
+    }
+    public function AccessSession(Request $request){
         //$request = Session::all([]);
-        dd(Session::get('Favourites'));
-        
+        dd(Session::get('items.id'));
+
     }
     public function DeleteFavourite(Request $request) {
         $request->session()->forget('Favourites');
         echo "Data has been removed from session.";
+     }
+     public function filterByCategory(Request $request)
+     {
+             $brands = Brand::all();
+             $images = Image::all();
+             $categories = Category::all();
+             $categoryFilter = $request->input('category_name');
+             $items = Item::with('brand', 'category', 'image')
+                 ->join('category', 'items.cat_id', '=' , 'category.id')
+                 ->where('category.category_name', 'LIKE', '%' .$categoryFilter.'%')
+                 ->orderBy('price', 'asc')->paginate(10);
+             return view('/dashboard', compact('categoryFilter', 'items','brands', 'categories', 'images'));
+
+
      }
 }

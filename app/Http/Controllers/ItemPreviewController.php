@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Brand;
@@ -11,11 +12,11 @@ use App\Models\Image;
 class ItemPreviewController extends Controller
 {
     public function Index()
-    {  
+    {
         $brand = Brand::all();
         $images = Image::all();
-        $category = Category::all();       
-        $items = Item::all(); 
+        $category = Category::all();
+        $items = Item::with('itemimages')->get();
         return view('itempreview', compact('items','brand', 'category', 'images'));
     }
 }

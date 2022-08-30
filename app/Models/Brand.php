@@ -11,8 +11,8 @@ class Brand extends Model
     protected $table = 'brand';
     public function Item()
     {
-        return $this->belongsTo((Item::class));
+        return $this->hasOne((Item::class));
 
-        
+
     }
 }
