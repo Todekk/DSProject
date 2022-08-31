@@ -21,7 +21,7 @@
         <div class="modal-body">
         <form method="POST" action="/brand/{{ $brand->id }}" enctype="multipart/form-data">
             <div class="form-group">
-                    <textarea name="brand_name">{{$brand->brand_name}}</textarea>  
+                    <input name="brand_name">{{$brand->brand_name}}</input>  
                     @if ($errors->has('brand_name'))
                         <span class="text-danger">{{ $errors->first('brand_name') }}</span>
                     @endif

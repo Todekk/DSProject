@@ -27,17 +27,16 @@
                         @if ($errors->has('image'))
                         <span class="text-danger">{{ $errors->first('image') }}</span>
                     @endif
-                </div>                    
-                </div>               
+                </div>
 
-                <div class="modal-footer">  
-                    <button type="submit" name="update" class="button">Обнови снимка</button>                          
-                    <button type="button" class="button" data-dismiss="modal">Затвори</button>        
+                <div class="modal-footer">
+                    <button type="submit" name="update" class="button">Обнови снимка</button>
+                    <button type="button" class="button" data-dismiss="modal">Затвори</button>
                 </div>
                 {{ csrf_field() }}
             </form>
-      
-        </div>       
+
+        </div>
       </div>
     </div>
   </div>

@@ -42,13 +42,13 @@
 a:link {
     color: rgb(0, 0, 0);
   }
-  
- 
+
+
   a:visited {
     background-color: rgb(36, 130, 238);
-    
+
   }
-  
+
 
   a:hover {
     color: rgb(255, 255, 255);
@@ -84,7 +84,7 @@ a:link {
   }
 
 
-       
+
 /* Modals */
 .modal-body{
     background-color: rgb(51, 51, 51);
@@ -122,27 +122,27 @@ a:link {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
   }
-  
-  
+
+
   .modal-content {
     background-color: rgb(51, 51, 51);
-    margin: 15% auto; 
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; 
+    width: 80%;
   }
-  
-  
+
+
   .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
   }
-  
+
   .close:hover,
   .close:focus {
     color: black;
@@ -164,4 +164,14 @@ a:link {
 .navli {
   float: left;
   margin-right: 5px;
+}
+vertnavul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 }

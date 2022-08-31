@@ -16,7 +16,7 @@
   <div class="modal" id="addSecondaryImageModal_creation" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 clas="modal-header">Добавяне на снимка</h2>
+          <h2 clas="modal-header">Добавяне на допълнителни снимки</h2>
         </div>
         <div class="modal-body">
             <form method="POST" action="/itemimages" enctype="multipart/form-data">
@@ -27,8 +27,16 @@
                     @if ($errors->has('itemimage'))
                         <span class="text-danger">{{ $errors->first('itemimage') }}</span>
                     @endif
-                    <div>
-                        <textarea name="item_id"  placeholder='Въведе идентификатора на артикула.'></textarea>
+                    <div class="form-group">
+                        @if ($errors->has('item_id'))
+                            <span class="text-danger">{{ $errors->first('item_id') }}</span>
+                        @endif
+                        <select class="form-group" name="item_id" id="item_id">
+                            <option selected>Артикули</option>
+                            @foreach($item as $items)
+                                <option value="{{$items->id}}">{{$items->itemName}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

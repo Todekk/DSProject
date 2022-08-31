@@ -23,50 +23,52 @@
         </div>
         <div class="modal-body">
          <form method="POST" action="/item" enctype="multipart/form-data">
-         <div class="form-group">
-                    <textarea name="mainimage_id"  placeholder='Въведе идентификатор за нужната снимка.'></textarea>
-                    @if ($errors->has('mainimage_id'))
-                        <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
-                    @endif
-                </div>
+             {{ csrf_field() }}
+             <div class="form-group">
+                 @if ($errors->has('mainimage_id'))
+                     <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
+                 @endif
+                     @foreach($images as $image)
+                         <input type="checkbox" value="{{$image->id}}" name="mainimage_id" id="mainimage_id" >
+                         <label><img style="height: 100px; width: 100px" src="{{$image->url}}"></label>
+                     @endforeach
+             </div>
             <div class="form-group">
-                    <textarea name="itemName" placeholder='Въведете името на вашият артикул.'></textarea>
+                    <input name="itemName" placeholder='Въведете името на вашият артикул.'></input>
                     @if ($errors->has('itemName'))
                         <span class="text-danger">{{ $errors->first('itemName') }}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <textarea name="description"  placeholder='Въведете кратко описание за вашетият артикул.'></textarea>
+                    <input name="description"  placeholder='Въведете кратко описание за вашетият артикул.'>
                     @if ($errors->has('description'))
                         <span class="text-danger">{{ $errors->first('description') }}</span>
                     @endif
                 </div>
                 <div class="form-group">
-                    <textarea name="brand_id"  placeholder='Въведе идентификатор за нужната марка.'></textarea>
                     @if ($errors->has('brand_id'))
                         <span class="text-danger">{{ $errors->first('brand_id') }}</span>
                     @endif
-                    <select class="form-group">
-                            <option disabled selected>Марки с техният идентификатор</option>
+                    <select class="form-group" name="brand_id" id="brand_id">
+                            <option selected>Марки</option>
                             @foreach($brands as $brand)
-                                <option disabled value="{{$brand->id}}" >{{$brand->id}}, {{$brand->brand_name}}</option>
+                                <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
                             @endforeach
                         </select>
                 </div>
                 <div class="form-group">
-                    <textarea name="cat_id"  placeholder='Въведе идентификатор за нужната категория.'></textarea>
                     @if ($errors->has('cat_id'))
                         <span class="text-danger">{{ $errors->first('cat_id') }}</span>
                     @endif
-                    <select class="form-group">
-                            <option disabled selected>Категории с техният идентификатор</option>
+                    <select class="form-group" name="cat_id" id="cat_id">
+                            <option selected>Категории</option>
                             @foreach($categories as $category)
-                                <option disabled value="{{$category->id}}" >{{$category->id}}, {{$category->category_name}}</option>
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <textarea name="price"  placeholder='Въведете цена за вашият артикул. (В левове)'></textarea>
+                    <input name="price"  placeholder='Въведете цена за вашият артикул. (В левове)'>
                     @if ($errors->has('price'))
                         <span class="text-danger">{{ $errors->first('price') }}</span>
                     @endif
@@ -76,7 +78,7 @@
                     <button type="submit" class="button">Добави артикул</button>
                     <button type="button" class="button" data-dismiss="modal">Затвори</button>
                 </div>
-                {{ csrf_field() }}
+
             </form>
 
         </div>

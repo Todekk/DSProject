@@ -9,7 +9,6 @@
         <div class="modal-body">
       <div class="modal-text">
         <h1>Сигурни ли сте, че искате да изтриете тази снимка ?</h1>
-        <img src="{{$itemimage->url}}">
         <p>Веднъж изтритa, тaзи снимка е загубена завинаги.</p>
         </div>
         <div class="modal-footer">

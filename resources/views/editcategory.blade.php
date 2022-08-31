@@ -8,7 +8,7 @@
         <div class="modal-body" id="task-table-body">
         <form method="POST" action="/category/{{ $category->id }}" enctype="multipart/form-data">
             <div class="form-group">
-                    <textarea name="category_name">{{$category->category_name}}</textarea>  
+                    <input name="category_name">{{$category->category_name}}</input>  
                     @if ($errors->has('category_name'))
                         <span class="text-danger">{{ $errors->first('category_name') }}</span>
                     @endif

@@ -19,21 +19,21 @@
           <h2 clas="modal-header">Добавяне на марка</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/brand" enctype="multipart/form-data"> 
+         <form method="POST" action="/brand" enctype="multipart/form-data">
             <div class="form-group">
-                    <textarea name="brand_name" placeholder='Въведете името на марката.'></textarea>  
+                    <input name="brand_name" placeholder='Въведете името на марката.'></input>
                     @if ($errors->has('brand_name'))
                         <span class="text-danger">{{ $errors->first('brand_name') }}</span>
                     @endif
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="button">Добави марка</button>
-                    <button type="button" class="button" data-dismiss="modal">Затвори</button>    
+                    <button type="button" class="button" data-dismiss="modal">Затвори</button>
                 </div>
                 {{ csrf_field() }}
             </form>
-      
-        </div>       
+
+        </div>
       </div>
     </div>
   </div>

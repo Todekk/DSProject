@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use App\Models\Image;
+use App\Models\Item;
 
 class ImagesController extends Controller
 {
     public function Index()
     {
+        $item = Item::all();
         $itemimages = ItemImage::all();
         $images = Image::all();
-        return view('images', compact('images', 'itemimages'));
+        return view('images', compact('images', 'itemimages', 'item'));
     }
     public function Add()
     {

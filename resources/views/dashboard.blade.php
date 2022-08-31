@@ -3,7 +3,7 @@
 <head>
 <title>Dashboard</title>
 </head>
-<body class="background">
+<body class="background" style="margin:0;">
 
 <!-- Nav Bar -->
 @if(Auth::user())
@@ -11,6 +11,15 @@
 <li class="navli" style="float:right; background-color: rgb(32, 32, 32);">
     <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
 </li>
+    <li class="navli" style="float:right;">
+        <form action="/filterByFavourite" method="get" >
+            {{ csrf_field() }}
+            <div>
+                  <span>
+                    <button type="submit" class="button">Любими</button>
+                  </span>
+            </div>
+        </form></li>
   <li class="navli"><a class="button" href="/images">Снимки</a></li>
   <li class="navli"><a class="button" href="/categories">Категории</a></li>
   <li class="navli"><a class="button" href="/brands">Марки</a></li>
@@ -35,25 +44,6 @@
              </div>
          </form>
  </li>
-<li class="navli">
-    <form action="/filterBySearch" method="get">
-      {{csrf_field()}}
-           <div>
-                <input type="filterBySearch" name="filterBySearch" placeholder="Търси" style="border-style: solid; border-width: 3px;">
-                 <span>
-                     <button type="submit" class="button">Търси</button>
-                  </span>
-            </div>
-      </form>
-</li>
-    <li class="navli"> <form action="/filterByFavourite" method="get">
-            {{ csrf_field() }}
-            <div>
-                  <span>
-                    <button type="submit" class="button">Любими</button>
-                  </span>
-            </div>
-        </form></li>
     @foreach($categories as $cat)
     <li class="navli"> <form action="/filterByCategory" method="get">
             {{ csrf_field() }}
@@ -64,6 +54,15 @@
             </div>
         </form>
         @endforeach</li>
+            <form action="/filterBySearch" method="get"  style="float:right;">
+                {{csrf_field()}}
+                <div>
+                    <input type="filterBySearch" name="filterBySearch" placeholder="Търси" style="border-style: solid; border-width: 3px;">
+                    <span>
+                     <button type="submit" class="button">Търси</button>
+                  </span>
+                </div>
+            </form>
 </ul>
 @if(Auth::guest())
 <h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a href="{{ route('login') }}" style="color:white">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
