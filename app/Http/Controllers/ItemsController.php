@@ -50,12 +50,14 @@ class ItemsController extends Controller
         $item->mainimage_id = $request->mainimage_id;
         $item->brand_id = $request->brand_id;
         $item->cat_id = $request->cat_id;
-        $item->itemName = $request->itemName;
+        $item->itemName = $request->get('itemName');
         $item->description = $request->description;
         $item->price = $request->price;
         //$item->user_id = auth()->user()->id;
         $item->save();
-        return redirect('/dashboard');
+
+
+        return response()->json(['success'=>'Successfully']);
     }
 
     public function Update(Request $request, Item $item){
@@ -143,7 +145,7 @@ class ItemsController extends Controller
 
     public function SaveFavourite(Request $request, Item $item){
         $item -> update(['isFavourite'=> !$item->isFavourite]);
-        return redirect('/dashboard');
+        return redirect('dashboard');
         /*if($isFavourite == true){
             //$sessionRequest = Session::push('items.id', $favourite);
 

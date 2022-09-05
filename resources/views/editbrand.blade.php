@@ -19,22 +19,23 @@
           <h2 clas="modal-header">Редактиране на марка</h2>
         </div>
         <div class="modal-body">
-        <form method="POST" action="/brand/{{ $brand->id }}" enctype="multipart/form-data">
+        <form method="POST" action="/brand/{{$brand->id}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="form-group">
-                    <input name="brand_name">{{$brand->brand_name}}</input>  
+                    <input name="brand_name" placeholder="{{$brand->brand_name}}">
                     @if ($errors->has('brand_name'))
                         <span class="text-danger">{{ $errors->first('brand_name') }}</span>
                     @endif
-                </div>               
-
-                <div class="modal-footer">  
-                    <button type="submit" name="update" class="button">Обнови марка</button>                          
-                    <button type="button" class="button" data-dismiss="modal">Затвори</button>        
                 </div>
-                {{ csrf_field() }}
+
+                <div class="modal-footer">
+                    <button type="submit" name="update" class="button">Обнови марка</button>
+                    <button type="button" class="button" data-dismiss="modal">Затвори</button>
+                </div>
+
             </form>
-      
-        </div>       
+
+        </div>
       </div>
     </div>
   </div>

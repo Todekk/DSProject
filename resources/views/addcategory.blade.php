@@ -6,9 +6,9 @@
           <h2 clas="modal-header">Добавяне на категория</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/category" enctype="multipart/form-data">
+         <form id="addCatForm" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                    <input name="category_name" placeholder='Въведете името на марката.'></input>
+                    <input  name="category_name" placeholder='Въведете името на марката.'></input>
                     @if ($errors->has('category_name'))
                         <span class="text-danger">{{ $errors->first('category_name') }}</span>
                     @endif
@@ -27,5 +27,31 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $('#addCatForm').on('submit', function(e){
+        e.preventDefault();
+
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        $.ajax({
+            headers:headers,
+            url: '/category',
+            type: "POST",
+            data:$(this).serialize(),
+            success:function(data){
+                alert("Успешно добавхите артикулът!")
+
+
+            },
+            error:function(data)
+            {
+                alert("Грешка при добавяне на артикул!")
+            }
+        })
+    });
+</script>
+
 
 <!--End modal-->

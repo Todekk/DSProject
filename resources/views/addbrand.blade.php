@@ -19,7 +19,7 @@
           <h2 clas="modal-header">Добавяне на марка</h2>
         </div>
         <div class="modal-body">
-         <form method="POST" action="/brand" enctype="multipart/form-data">
+         <form method="POST" id="brandForm" enctype="multipart/form-data">
             <div class="form-group">
                     <input name="brand_name" placeholder='Въведете името на марката.'></input>
                     @if ($errors->has('brand_name'))
@@ -41,5 +41,30 @@
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#brandForm').on('submit', function(e){
+        e.preventDefault();
+
+        var headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        $.ajax({
+            headers:headers,
+            url: '/brand',
+            type: "POST",
+            data:$(this).serialize(),
+            success:function(data){
+                alert("Успешно добавхите артикулът!")
+
+
+            },
+            error:function(data)
+            {
+                alert("Грешка при добавяне на артикул!")
+                console.log(data);
+            }
+        })
+    });
+</script>
 
 <!--End modal-->

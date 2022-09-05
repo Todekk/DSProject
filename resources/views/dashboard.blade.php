@@ -12,7 +12,7 @@
     <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
 </li>
     <li class="navli" style="float:right;">
-        <form action="/filterByFavourite" method="get" >
+        <form action="{{ url('/filterByFavourite') }}" method="get" >
             {{ csrf_field() }}
             <div>
                   <span>
@@ -20,14 +20,14 @@
                   </span>
             </div>
         </form></li>
-  <li class="navli"><a class="button" href="/images">Снимки</a></li>
-  <li class="navli"><a class="button" href="/categories">Категории</a></li>
-  <li class="navli"><a class="button" href="/brands">Марки</a></li>
+  <li class="navli"><a class="button" href="{{ url('/images') }}">Снимки</a></li>
+  <li class="navli"><a class="button" href="{{ url('/categories') }}">Категории</a></li>
+  <li class="navli"><a class="button" href="{{ url('/brands') }}">Марки</a></li>
 </ul>
 @endif
 <!-- Filters -->
 <ul class="navul">
-  <li class="navli"> <form action="/filterName" method="get">
+  <li class="navli"> <form action="{{ url('/filterName') }}" method="get">
     {{ csrf_field() }}
                  <div>
                   <span>
@@ -35,7 +35,7 @@
                   </span>
              </div>
          </form></li>
-  <li class="navli"><form action="/filterPrice" method="get">
+  <li class="navli"><form action="{{url('/filterPrice')}}" method="get">
    {{ csrf_field() }}
               <div>
                   <span>
@@ -45,7 +45,7 @@
          </form>
  </li>
     @foreach($categories as $cat)
-    <li class="navli"> <form action="/filterByCategory" method="get">
+    <li class="navli"> <form action="{{url('/filterByCategory')}}" method="get">
             {{ csrf_field() }}
             <div>
                   <span>
@@ -54,7 +54,7 @@
             </div>
         </form>
         @endforeach</li>
-            <form action="/filterBySearch" method="get"  style="float:right;">
+            <form action="{{url('/filterBySearch')}}" method="get"  style="float:right;">
                 {{csrf_field()}}
                 <div>
                     <input type="filterBySearch" name="filterBySearch" placeholder="Търси" style="border-style: solid; border-width: 3px;">
@@ -101,7 +101,7 @@
                 <tbody>
                 @foreach($items as $item)
                     <tr class="tr">
-                        <td><form action="/{{$item->id}}" method="post">
+                        <td><form action="/{{$item->id}}" id="addFavourite" method="post">
                         {{ csrf_field() }}
                             @method('PATCH')
                                 <button id="btn" class="anchorButton" style="background-color:yellow">⭐</button>
@@ -142,28 +142,11 @@
 
 </body>
 <!--Ajax-->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#load').click(load);
-    })
-    function load(){
-    $.ajax({
-        type:"GET",
-        url: 'addFav',
-        data:{
-            num:$('#num1').val(),
-            num2:$('#num2').val()
-        },
-        dataType: 'json'
-    }).done(function(data){
-        $('#content').append('<p class="fav">'+Test+'</p>')
-    })
-    }
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style type="text/css">
     .fav{
         background-color: white;
     }
-</style>-->
+</style>
 </html>

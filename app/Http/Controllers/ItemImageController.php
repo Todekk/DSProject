@@ -28,8 +28,7 @@ class ItemImageController extends Controller
         $item->url = "allimages" . DIRECTORY_SEPARATOR .$image_name;
         //$item->user_id = auth()->user()->id;
         $item->save();
-        return redirect('/images')
-            ->with('image',$image_name);;
+        return response()->json($item);
     }
     public function Update(Request $request, ItemImage $image){
         if(isset($_POST['delete'])){

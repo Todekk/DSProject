@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
+
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -29,11 +29,11 @@
         </div>
         <div class="modal-footer">
       <form action="/item/{{$item->id}}" class="inline-block" enctype="multipart/form-data">
-             <button type="submit" name="delete" formmethod="POST" class="button" style="background-color: red;">Изтрий</button>                
-             <button type="button" class="button" data-dismiss="modal">Затвори</button>
+          <button type="submit" name="delete" formmethod="POST" class="button" style="background-color: red;">Изтрий</button>
+          <button type="button" class="button" data-dismiss="modal">Затвори</button>
              {{ csrf_field() }}
        </form>
-        </div>       
+        </div>
       </div>
     </div>
   </div>
