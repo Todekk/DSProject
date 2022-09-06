@@ -19,7 +19,7 @@
           <h2 clas="modal-header">Добавяне на допълнителни снимки</h2>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{url('/itemimages')}}" enctype="multipart/form-data">
+            <form method="POST" action="/itemimages" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="col-md-6">
                         <input type="file" name="image" class="form-control">
@@ -55,28 +55,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-    $('#submitForm').on('submit', function(e){
-        e.preventDefault();
-
-        var headers = {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        $.ajax({
-            headers:headers,
-            url: '/item',
-            type: "POST",
-            dataType:'json',
-            data:$(this).serialize(),
-            success:function(data){
-                alert("Успешно добавхите артикулът!")
-
-            },
-            error:function(data)
-            {
-                alert("Грешка при добавяне на артикул!")
-            }
-        })
-    });
-</script>
 <!--End modal-->

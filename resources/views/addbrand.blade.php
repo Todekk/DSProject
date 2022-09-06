@@ -54,13 +54,14 @@
             type: "POST",
             data:$(this).serialize(),
             success:function(data){
-                alert("Успешно добавхите артикулът!")
+                alert("Успешно добавхите марка!")
+                console.log(data);
 
 
             },
             error:function(data)
             {
-                alert("Грешка при добавяне на артикул!")
+                alert("Грешка при добавяне на марка!")
                 console.log(data);
             }
         })

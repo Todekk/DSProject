@@ -41,13 +41,13 @@
             type: "POST",
             data:$(this).serialize(),
             success:function(data){
-                alert("Успешно добавхите артикулът!")
+                alert("Успешно добавхите категория!")
 
 
             },
             error:function(data)
             {
-                alert("Грешка при добавяне на артикул!")
+                alert("Грешка при добавяне на категория!")
             }
         })
     });
