@@ -16,11 +16,10 @@
             {{ csrf_field() }}
             <div>
                   <span>
-                    <button type="submit" class="button">Любими</button>
+                    <button type="submit" class="button">Любими:{{$count->count()}}</button>
                   </span>
             </div>
         </form></li>
-  <li class="navli"><a class="button" href="{{ url('/images') }}">Снимки</a></li>
   <li class="navli"><a class="button" href="{{ url('/categories') }}">Категории</a></li>
   <li class="navli"><a class="button" href="{{ url('/brands') }}">Марки</a></li>
 </ul>
@@ -99,8 +98,9 @@
                 </thead>
 
                 <tbody>
-                @foreach($items as $item)
+                @foreach($items as $key=>$item)
                     <tr class="tr">
+
                         <td><form action="/{{$item->id}}" id="addFavourite" method="post">
                         {{ csrf_field() }}
                             @method('PATCH')
@@ -129,16 +129,20 @@
                             <a data-toggle="modal" href="#" data-target="#itemPreview{{$item->id}}" class="anchorButton">Преглед</a>
                             <a data-toggle="modal" href="#" data-target="#editModal{{$item->id}}" class="anchorButton">Редактирай</a>
                             <a data-toggle="modal" href="#" data-target="#deleteModal{{$item->id}}" class="anchorButton">Изтрий</a>
+
                         </td>
                     </tr>
                     @include('edit')
                     @include('delete')
                 @endforeach
+                <th><h2 style="color:white;">Aртикули({{++$key}})</h2></th>
                 </tbody>
             </table>
 
 @include('add')
 @include('itempreview')
+@include('addsecondaryimage')
+@include('deletesecondaryimage')
 
 </body>
 <!--Ajax-->
@@ -150,3 +154,4 @@
     }
 </style>
 </html>
+

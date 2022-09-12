@@ -28,13 +28,13 @@ class ItemImageController extends Controller
         $item->url = "allimages" . DIRECTORY_SEPARATOR .$image_name;
         //$item->user_id = auth()->user()->id;
         $item->save();
-        return redirect('/images');
+        return redirect('/dashboard');
     }
     public function Update(Request $request, ItemImage $image){
         if(isset($_POST['delete'])){
             unlink($image->path);
             $image->delete();
-            return redirect('/images');
+            return redirect('/dashboard');
         }
     }
 }

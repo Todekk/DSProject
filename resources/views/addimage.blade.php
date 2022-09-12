@@ -33,9 +33,7 @@
                     <button type="button" class="button" data-dismiss="modal">Затвори</button>
                 </div>
                 {{ csrf_field() }}
-            </form>
-
-        </div>
+            </form>   </div>
       </div>
     </div>
   </div>

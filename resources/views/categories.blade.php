@@ -6,12 +6,11 @@
 <body class="background">
 <!-- Nav Bar-->
 @if(Auth::user())
-<ul class="navul">    
-<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">    
-    <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>    
+<ul class="navul">
+<li class="navli" style="float:right; background-color: rgb(32, 32, 32);">
+    <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
 </li>
   <li class="navli"><a class="button" href="/dashboard">Артикули</a></li>
-  <li class="navli"><a class="button" href="/images">Снимки</a></li>
   <li class="navli"><a class="button" href="/brands">Марки</a></li>
 </ul>
 @endif
@@ -23,38 +22,38 @@
                     <th><h2 style="color:white;">Категории</h2></th>
                     @if(Auth::user())
                     <th> <div class="divLayout">
-                   <a data-toggle="modal" href="#" id="addCategoryModal" data-target="#addCategoryModal_create" class="addButton">Добави категория</a> 
+                   <a data-toggle="modal" href="#" id="addCategoryModal" data-target="#addCategoryModal_create" class="addButton">Добави категория</a>
                     </div>
                     @endif
                 </th>
                 </tr>
             </table>
-                
+
                 <!-- Adding a new item -->
-               
+
             </div>
-            
+
             <!-- Display Information -->
             <table class="table">
                 <thead>
                 <tr class="tr">
                     <th class="thBackground th">Категория</th>
                     <th class="thBackground th">Действия</th>
-                </tr>                
+                </tr>
                 </thead>
-                
+
                 <tbody>
                 @foreach($categories as $category)
-                    <tr class="tr">             
+                    <tr class="tr">
                         <td class="td">
                             {{$category->category_name}}
-                        </td>                      
-                        <td class="td">
-                            <a data-toggle="modal" href="#editCategoryModal{{$category->id}}" id="showEditModal" class="anchorBCButton">Редактирай</a>                            
-                            <a data-toggle="modal" href="#" data-target="#deleteCategoryModal{{$category->id}}" class="anchorBCButton">Изтрий</a>                                                    
                         </td>
-                    </tr>    
-                               
+                        <td class="td">
+                            <a data-toggle="modal" href="#editCategoryModal{{$category->id}}" id="showEditModal" class="anchorBCButton">Редактирай</a>
+                            <a data-toggle="modal" href="#" data-target="#deleteCategoryModal{{$category->id}}" class="anchorBCButton">Изтрий</a>
+                        </td>
+                    </tr>
+
                 @endforeach
                 </tbody>
             </table>
@@ -67,13 +66,13 @@
                             url = anchor.attr('href')
                         $.ajax({
                                 url: url,
-                            dataType: 'html', 
+                            dataType: 'html',
                             success: function(response) {
                                 $('#task-table-body').html(response);
                             },
                             error: function (data){
                                     console.log(data);
-                            }                           
+                            }
                     });
 
                     $('#editCategoryModal').modal('show');
@@ -81,7 +80,7 @@
         });
         </script>
 @include('editcategory')
-@include('deletecategory')      
+@include('deletecategory')
 @include('addcategory')
 
 

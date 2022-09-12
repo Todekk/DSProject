@@ -18,8 +18,16 @@
           <h2 clas="modal-header">Добавяне на артикул</h2>
         </div>
         <div class="modal-body">
-         <form method="post" enctype="multipart/form-data" id="addItemForm">
+         <form method="post" action="/item" enctype="multipart/form-data" id="addItemForm">
              @csrf
+             <div class="form-group">
+                 <div class="col-md-6">
+                     <input type="file" name="image" class="form-control">
+                 </div>
+                 @if ($errors->has('image'))
+                     <span class="text-danger">{{ $errors->first('image') }}</span>
+                 @endif
+             </div>
              <div class="form-group">
                  @if ($errors->has('mainimage_id'))
                      <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
@@ -83,7 +91,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $('#addItemForm').on('submit', function(e){
         e.preventDefault();
 
@@ -94,20 +102,21 @@
             headers:headers,
             url: '/item',
             type: "POST",
-            dataType:'json',
             data:$(this).serialize(),
             success:function(data){
                 alert("Успешно добавхите артикулът!")
+                console.log(data)
 
 
             },
             error:function(data)
             {
                 alert("Грешка при добавяне на артикул!")
+                console.log(data)
             }
         })
     });
-</script>
+</script>-->
 
 <!--End modal-->
 

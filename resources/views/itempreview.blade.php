@@ -11,6 +11,9 @@
 
                     <tbody>
                     <th class="thBackground th">Снимки</th>
+                    <th><div class="divLayout">
+                            <a data-toggle="modal" href="#" id="addSecondaryImageModal" data-target="#addSecondaryImageModal{{$item->id}}" class="addButton">Добави снимка</a>
+                        </div></th>
                     <tr class="tr">
                         @foreach($item->itemimages as $itemimage)
                             <td class="td"><img value="{{$itemimage->item_id}}" src="{{$itemimage->url}}" width="200px"></td>
@@ -47,5 +50,8 @@
             </div>
         </div>
     </div>
+
     <!--End modal-->
+
 @endforeach
+

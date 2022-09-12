@@ -12,8 +12,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+    @foreach($items as $item)
 <!-- Modal -->
-  <div class="modal" id="addSecondaryImageModal_creation" role="dialog">
+  <div class="modal" id="addSecondaryImageModal{{$item->id}}" role="dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h2 clas="modal-header">Добавяне на допълнителни снимки</h2>
@@ -32,10 +33,7 @@
                             <span class="text-danger">{{ $errors->first('item_id') }}</span>
                         @endif
                         <select class="form-group" name="item_id" id="item_id">
-                            <option selected>Артикули</option>
-                            @foreach($item as $items)
-                                <option value="{{$items->id}}">{{$items->itemName}}</option>
-                            @endforeach
+                            <option value="{{$item->id}}" selected>{{$item->itemName}}</option>
                         </select>
                     </div>
                 </div>
@@ -50,6 +48,7 @@
       </div>
     </div>
   </div>
+    @endforeach
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
