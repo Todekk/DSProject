@@ -20,16 +20,15 @@
             </div>
             <div class="modal-body">
                 <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data">
-                    <div class="form-group">
-                        @if ($errors->has('mainimage_id'))
-                            <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
-                        @endif
-                        @foreach($images as $image)
-                            <input type="checkbox" value="{{$image->id}}" name="mainimage_id" id="mainimage_id" >
-                            <label><img style="height: 100px; width: 100px" src="{{$image->url}}"></label>
-                        @endforeach
-                    </div>
                     <div class="">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="file" name="image" class="form-control">
+                            </div>
+                            @if ($errors->has('image'))
+                                <span class="text-danger">{{ $errors->first('image') }}</span>
+                            @endif
+                        </div>
                         <input name="itemName" class="" placeholder="{{$item->itemName }}">
                         @if ($errors->has('itemName'))
                             <span class="text-danger">{{ $errors->first('itemName') }}</span>
@@ -71,7 +70,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="update" class="edit">Обнови артикул</button>
+                        <button type="submit" name="update" class="button">Обнови артикул</button>
                         <button type="button" class="button" data-dismiss="modal">Затвори</button>
                     </div>
                     {{ csrf_field() }}
@@ -83,5 +82,6 @@
     </div>
     <!--End modal-->
 @endforeach
+
 </body>
 </html>

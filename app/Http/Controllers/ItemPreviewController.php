@@ -14,9 +14,9 @@ class ItemPreviewController extends Controller
     public function Index()
     {
         $brand = Brand::all();
-        $images = Image::all();
+        $image = Image::all();
         $category = Category::all();
         $items = Item::with('itemimages')->get();
-        return view('itempreview', compact('items','brand', 'category', 'images'));
+        return view('itempreview', compact('items','brand', 'category', 'image'));
     }
 }

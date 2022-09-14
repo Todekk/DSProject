@@ -1,7 +1,7 @@
 
-@foreach($images as $image)
+@foreach($items as $item)
 <!-- Modal -->
-  <div class="modal" id="deleteSecondaryImageModal{{$image->id}}" role="dialog">
+  <div class="modal" id="deleteSecondaryImageModal{{$item->id}}" role="dialog">
       <div class="modal-content">
         <div class="modal-header" style="background-color:white;">
           <h2 clas="modal-header" style="color: red;">ВНИМАНИЕ!</h2>
@@ -12,7 +12,7 @@
         <p>Веднъж изтритa, тaзи снимка е загубена завинаги.</p>
         </div>
         <div class="modal-footer">
-      <form action="/itemimage/{{$image->id}}" class="inline-block" enctype="multipart/form-data">
+      <form action="/itemimage/{{$item->id}}" class="inline-block" enctype="multipart/form-data">
              <button type="submit" name="delete" formmethod="POST" class="button" style="background-color: red;">Изтрий</button>
              <button type="button" class="button" data-dismiss="modal">Затвори</button>
              {{ csrf_field() }}

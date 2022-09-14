@@ -16,7 +16,7 @@
                         </div></th>
                     <tr class="tr">
                         @foreach($item->itemimages as $itemimage)
-                            <td class="td"><img value="{{$itemimage->item_id}}" src="{{$itemimage->url}}" width="200px"></td>
+                            <td class="td"><img value="{{$itemimage->item_id}}" src="{{$itemimage->photourl}}" width="200px"></td>
                         @endforeach
                         </tr>
                     <tr class="tr">

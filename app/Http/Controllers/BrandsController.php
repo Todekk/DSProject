@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use App\Models\Item;
 
 class BrandsController extends Controller
 {
     public function Index()
-    {  
-       
-        $brands = Brand::all();
+    {
+
+        $brands = Brand::paginate(10);
         return view('brands', compact('brands'));
     }
     public function Create(Request $request)
@@ -35,8 +36,8 @@ class BrandsController extends Controller
             return redirect('/brands');
         }
     }
-    public function Update(Request $request, Brand $brand){
-        if(isset($_POST['delete'])){           
+    public function Update(Request $request, Brand $brand, Item $items){
+        if(isset($_POST['delete'])){
             $brand->delete();
             return redirect('/brands');
         }

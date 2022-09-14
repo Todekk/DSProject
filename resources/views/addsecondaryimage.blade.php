@@ -23,7 +23,7 @@
             <form method="POST" action="/itemimages" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="col-md-6">
-                        <input type="file" name="image" class="form-control">
+                        <input type="file" name="image" multiple class="form-control">
                     </div>
                     @if ($errors->has('itemimage'))
                         <span class="text-danger">{{ $errors->first('itemimage') }}</span>

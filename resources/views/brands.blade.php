@@ -59,6 +59,7 @@
                 @endforeach
                 </tbody>
             </table>
+{{$brands->links()}}
 
 @include('addbrand')
 

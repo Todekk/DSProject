@@ -48,7 +48,7 @@
             {{ csrf_field() }}
             <div>
                   <span>
-                    <button value="{{$cat->category_name}}" name="category_name" class="button">{{$cat->category_name}}</button>
+                    <button value="{{$cat->category_name}}" name="category_name" class="button">{{$cat->category_name}}({{$cat->item_count}})</button>
                   </span>
             </div>
         </form>
@@ -98,9 +98,8 @@
                 </thead>
 
                 <tbody>
-                @foreach($items as $key=>$item)
+                @foreach($items as $item)
                     <tr class="tr">
-
                         <td><form action="/{{$item->id}}" id="addFavourite" method="post">
                         {{ csrf_field() }}
                             @method('PATCH')
@@ -135,9 +134,9 @@
                     @include('edit')
                     @include('delete')
                 @endforeach
-                <th><h2 style="color:white;">Aртикули({{++$key}})</h2></th>
                 </tbody>
             </table>
+{{$items->links()}}
 
 @include('add')
 @include('itempreview')

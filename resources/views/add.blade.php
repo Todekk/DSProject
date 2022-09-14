@@ -29,13 +29,12 @@
                  @endif
              </div>
              <div class="form-group">
-                 @if ($errors->has('mainimage_id'))
-                     <span class="text-danger">{{ $errors->first('mainimage_id') }}</span>
+                 <div class="col-md-6">
+                     <input type="file" name="photo" class="form-control">
+                 </div>
+                 @if ($errors->has('photo'))
+                     <span class="text-danger">{{ $errors->first('photo') }}</span>
                  @endif
-                     @foreach($images as $image)
-                         <input type="checkbox" value="{{$image->id}}" name="mainimage_id" id="mainimage_id" >
-                         <label><img style="height: 100px; width: 100px" src="{{$image->url}}"></label>
-                     @endforeach
              </div>
             <div class="form-group">
                     <input name="itemName" action="/item" id="itemName" placeholder='Въведете името на вашият артикул.'>
@@ -91,7 +90,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
     $('#addItemForm').on('submit', function(e){
         e.preventDefault();
 
@@ -102,7 +101,11 @@
             headers:headers,
             url: '/item',
             type: "POST",
-            data:$(this).serialize(),
+            processData: false,
+            contentType: false,
+            cache: false,
+            data:new FormData(this),
+            enctype: 'multipart/form-data',
             success:function(data){
                 alert("Успешно добавхите артикулът!")
                 console.log(data)
@@ -116,7 +119,7 @@
             }
         })
     });
-</script>-->
+</script>
 
 <!--End modal-->
 

@@ -18,22 +18,22 @@ class ItemImageController extends Controller
         ],[
             'image.required' => 'Задължително се избира снимка!',
         ]);
-        $image_name = time().'.'.$request->image->extension();
-        $request->image->move(public_path('allimages'), $image_name);
+        $photo_name = time().'.'.$request->image->extension();
+        $request->image->move(public_path('secondimages'), $photo_name);
 
-        $item = new ItemImage();
-        $item->item_id = $request->item_id;
-        $item->image_name = $image_name;
-        $item->path = public_path('allimages').DIRECTORY_SEPARATOR . $image_name;
-        $item->url = "allimages" . DIRECTORY_SEPARATOR .$image_name;
+        $photo = new ItemImage();
+        $photo->item_id = $request->item_id;
+        $photo->photo_name = $photo_name;
+        $photo->photopath = public_path('secondimages').DIRECTORY_SEPARATOR . $photo_name;
+        $photo->photourl = "secondimages" . DIRECTORY_SEPARATOR .$photo_name;
         //$item->user_id = auth()->user()->id;
-        $item->save();
+        $photo->save();
         return redirect('/dashboard');
     }
-    public function Update(Request $request, ItemImage $image){
+    public function Update(Request $request, ItemImage $photo){
         if(isset($_POST['delete'])){
-            unlink($image->path);
-            $image->delete();
+            unlink($photo->photopath);
+            $photo->delete();
             return redirect('/dashboard');
         }
     }

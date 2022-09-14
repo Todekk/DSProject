@@ -57,28 +57,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <script>
-            $(document).ready(function () {
-      $('body').on('click', '#showEditModal', function(event) {
-                event.preventDefault();
-
-                    var anchor = $(this),
-                            url = anchor.attr('href')
-                        $.ajax({
-                                url: url,
-                            dataType: 'html',
-                            success: function(response) {
-                                $('#task-table-body').html(response);
-                            },
-                            error: function (data){
-                                    console.log(data);
-                            }
-                    });
-
-                    $('#editCategoryModal').modal('show');
-            });
-        });
-        </script>
+{{$categories->links()}}
 @include('editcategory')
 @include('deletecategory')
 @include('addcategory')

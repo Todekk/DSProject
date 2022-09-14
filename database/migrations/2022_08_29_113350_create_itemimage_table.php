@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('itemimage', function (Blueprint $table) {
             $table->id();
-            $table->string('image_name');
-            $table->string('path');
-            $table->string('url');
+            $table->string('photo_name');
+            $table->string('photopath');
+            $table->string('photourl');
             $table->unsignedBigInteger('item_id');
             $table->timestamps();
 

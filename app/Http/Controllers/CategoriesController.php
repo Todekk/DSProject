@@ -8,9 +8,9 @@ use App\Models\Category;
 class CategoriesController extends Controller
 {
     public function Index()
-    {  
-       
-        $categories = Category::all();
+    {
+
+        $categories = Category::paginate(10);
         return view('categories', compact('categories'));
     }
     public function Create(Request $request)
@@ -37,7 +37,7 @@ class CategoriesController extends Controller
         }
     }
     public function Update(Request $request, Category $category){
-        if(isset($_POST['delete'])){           
+        if(isset($_POST['delete'])){
             $category->delete();
             return redirect('/categories');
         }
