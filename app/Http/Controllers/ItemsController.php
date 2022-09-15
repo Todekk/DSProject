@@ -15,6 +15,9 @@ class ItemsController extends Controller
 {
     public function Index(Request $request)
     {
+        $favCount = Category::withCount(['Item' => function ($q){
+            $q->where('isFavourite', '=', '1');
+        }])->get();
 
         $brands = Brand::all();
         $images = Image::all();
@@ -22,7 +25,7 @@ class ItemsController extends Controller
         $items = Item::paginate(10);
         $count = Item::all()
             ->where('isFavourite' , '=', '1');
-        return view('dashboard', compact('items','brands', 'categories', 'images', 'count'));
+        return view('dashboard', compact('items','brands', 'categories', 'images', 'count', 'favCount'));
     }
     public function Add()
     {
@@ -133,6 +136,9 @@ class ItemsController extends Controller
 
     public function FilterName(Request $request)
     {
+        $favCount = Category::withCount(['Item' => function ($q){
+            $q->where('isFavourite', '=', '1');
+        }])->get();
         $count = Item::all()
             ->where('isFavourite' , '=', '1');
         $brands = Brand::all();
@@ -140,10 +146,13 @@ class ItemsController extends Controller
         $categories = Category::withCount('Item')->get();
         $items = Item::with('brand', 'category', 'image')
             ->orderBy('itemName', 'asc')->paginate(10);
-            return view('dashboard', compact('items','brands', 'categories', 'images', 'count'));
+            return view('dashboard', compact('items','brands', 'categories', 'images', 'count', 'favCount'));
     }
     public function FilterPrice(Request $request)
     {
+        $favCount = Category::withCount(['Item' => function ($q){
+            $q->where('isFavourite', '=', '1');
+        }])->get();
         $count = Item::all()
             ->where('isFavourite' , '=', '1');
         $brands = Brand::all();
@@ -151,10 +160,13 @@ class ItemsController extends Controller
         $categories = Category::withCount('Item')->get();
         $items = Item::with('brand', 'category', 'image')
             ->orderBy('price', 'asc')->paginate(10);
-        return view('dashboard', compact('items','brands', 'categories', 'images', 'count'));
+        return view('dashboard', compact('items','brands', 'categories', 'images', 'count', 'favCount'));
     }
     public function FilterBySearch(Request $request)
     {
+        $favCount = Category::withCount(['Item' => function ($q){
+            $q->where('isFavourite', '=', '1');
+        }])->get();
         $brands = Brand::all();
         $images = Image::all();
         $categories = Category::withCount('Item')->get();
@@ -169,10 +181,13 @@ class ItemsController extends Controller
             ->orWhere('category.category_name', 'LIKE', '%' .$filterBySearch.'%')
             ->orWhere('brand.brand_name', 'LIKE', '%' .$filterBySearch.'%')
             ->orderBy('price', 'asc')->paginate(10);
-            return view('dashboard', compact('items','brands', 'categories', 'images', 'count'));
+            return view('dashboard', compact('items','brands', 'categories', 'images', 'count', 'favCount'));
     }
     public function FilterByFavourite(Request $request)
     {
+        $favCount = Category::withCount(['Item' => function ($q){
+            $q->where('isFavourite', '=', '1');
+        }])->get();
         $brands = Brand::all();
         $images = Image::all();
         $categories = Category::withCount('Item')->get();
@@ -181,7 +196,7 @@ class ItemsController extends Controller
             ->orderBy('price', 'asc')->paginate(10);
         $count = Item::all()
             ->where('isFavourite' , '=', '1');
-        return view('dashboard', compact('items','brands', 'categories', 'images', 'count'));
+        return view('dashboard', compact('items','brands', 'categories', 'images', 'count', 'favCount'));
     }
 
     public function SaveFavourite(Request $request, Item $item){
@@ -197,6 +212,9 @@ class ItemsController extends Controller
 
      public function filterByCategory(Request $request)
      {
+         $favCount = Category::withCount(['Item' => function ($q){
+             $q->where('isFavourite', '=', '1');
+         }])->get();
          $count = Item::all()
              ->where('isFavourite' , '=', '1');
              $brands = Brand::all();
@@ -206,7 +224,7 @@ class ItemsController extends Controller
              $items = Item::with('brand', 'category', 'image')
                  ->join('category', 'items.cat_id', '=' , 'category.id')
                  ->where('category.category_name', 'LIKE', '%' .$categoryFilter.'%')->paginate(10);
-             return view('/dashboard', compact('categoryFilter', 'items','brands', 'categories', 'images', 'count'));
+             return view('/dashboard', compact('categoryFilter', 'items','brands', 'categories', 'images', 'count', 'favCount'));
 
 
      }

@@ -66,7 +66,14 @@
 @if(Auth::guest())
 <h4 style="color:white">Изглежда, че не сте влезли с потребителски акаунт, <a href="{{ route('login') }}" style="color:white">влезте</a> в профила си или се <a style="color:white" href="{{ route('register') }}">регистрирайте</a>.</h4>
 @endif
-            <table>
+<br>
+<ul class="vertnavul">
+    <h3 class="vertnavli" style="font-size: 30px">Любими</h3>
+    @foreach($favCount as $fav)
+        <li class="vertnavli"><p>{{$fav->category_name}}: ({{$fav->item_count}})</p></li>
+    @endforeach
+</ul>
+            <table style="margin-left:25%;padding:1px 16px;">
                 <tr>
                     <th><h2 style="color:white;">Aртикули</h2></th>
                     @if(Auth::user())
@@ -83,7 +90,8 @@
             </div>
 
             <!-- Display Information -->
-            <table class="table">
+
+            <table class="table" style="margin-left:25%;padding:1px 16px;">
                 <thead>
                 <tr class="tr">
                     <th class="thBackground th">Любими</th>
