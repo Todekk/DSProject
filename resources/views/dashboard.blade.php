@@ -11,15 +11,6 @@
 <li class="navli" style="float:right; background-color: rgb(32, 32, 32);">
     <p style="font-weight:bold;font-size:15px;">Здравей, {{Auth::user()->name}}!</p>
 </li>
-    <li class="navli" style="float:right;">
-        <form action="{{ url('/filterByFavourite') }}" method="get" >
-            {{ csrf_field() }}
-            <div>
-                  <span>
-                    <button type="submit" class="button">Любими:{{$count->count()}}</button>
-                  </span>
-            </div>
-        </form></li>
   <li class="navli"><a class="button" href="{{ url('/categories') }}">Категории</a></li>
   <li class="navli"><a class="button" href="{{ url('/brands') }}">Марки</a></li>
 </ul>
@@ -68,7 +59,14 @@
 @endif
 <br>
 <ul class="vertnavul">
-    <h3 class="vertnavli" style="font-size: 30px">Любими</h3>
+    <li class="vertnavli"><form action="{{ url('/filterByFavourite') }}" method="get" >
+        {{ csrf_field() }}
+        <div>
+                  <span>
+                    <button type="submit" class="button" style="font-size: 20px;">Любими:{{$count->count()}}</button>
+                  </span>
+        </div>
+    </form></li>
     @foreach($favCount as $fav)
         <li class="vertnavli"><p>{{$fav->category_name}}: ({{$fav->item_count}})</p></li>
     @endforeach
